@@ -74,7 +74,7 @@ namespace OpenNos.GameObject
                                 numberOfItem = 50;
                                 newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
                                 break;
-                            default:
+                            default: //CUBY
                                 newInv = session.Character.Inventory.AddNewToInventory(265, numberOfItem);
                                 break;
                         }

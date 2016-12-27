@@ -3109,20 +3109,20 @@ namespace OpenNos.GameObject
                         {
                             switch (MapId)
                             {
-                                case 2522:
-                                    newItem.Design = 1;
+                                case 220:
+                                    newItem.Design = 16;
                                     break;
                                 case 2502:
                                     newItem.Design = 2;
+                                    break;
+                                case 2522:
+                                    newItem.Design = 1;
                                     break;
                                 case 2532:
                                     newItem.Design = 3;
                                     break;
                                 case 2542:
                                     newItem.Design = 4;
-                                    break;
-                                case 220:
-                                    newItem.Design = 16;
                                     break;
                                 case 2589:
                                     newItem.Design = 17;
