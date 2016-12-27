@@ -195,7 +195,10 @@ namespace OpenNos.GameObject
                         if (newInv != null)
                         {
                             dynamic raidBoxItem;
-                            if (newInv.Type == InventoryType.Equipment)
+                            if (newInv.Type == InventoryType.Equipment &&
+                                    (newInv.Item.EquipmentSlot == EquipmentType.Armor ||
+                                     newInv.Item.EquipmentSlot == EquipmentType.MainWeapon ||
+                                     newInv.Item.EquipmentSlot == EquipmentType.SecondaryWeapon))
                             {
                                 newInv.Rare = raidBox.Rare;
                                 raidBoxItem =
