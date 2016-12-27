@@ -33,7 +33,7 @@ namespace OpenNos.World
     {
         #region Members
 
-        private const string IPADDRESS = "127.0.0.1";
+        private const string IPADDRESS = "91.134.173.36";
 
         private static EventHandler exitHandler;
         private static ManualResetEvent run = new ManualResetEvent(true);
@@ -145,7 +145,7 @@ namespace OpenNos.World
         private static bool ExitHandler(CtrlType sig)
         {
             string serverGroup = System.Configuration.ConfigurationManager.AppSettings["ServerGroup"];
-            int port = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["WorldPort"]);
+            int port = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["WorldPort"]) + (ServerManager.Instance.ChannelId >= 1 ? ServerManager.Instance.ChannelId - 1 : ServerManager.Instance.ChannelId);
             ServerCommunicationClient.Instance.HubProxy.Invoke("UnregisterWorldserver", serverGroup, new ScsTcpEndPoint(IPADDRESS, port)).Wait();
 
             ServerManager.Instance.Shout(string.Format(Language.Instance.GetMessageFromKey("SHUTDOWN_SEC"), 5));

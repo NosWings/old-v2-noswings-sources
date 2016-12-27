@@ -34,6 +34,68 @@ namespace OpenNos.GameObject
         {
             switch (Effect)
             {
+                case 0:
+                    if (VNum == 302)
+                    {
+                        BoxInstance raidBox = session.Character.Inventory.LoadBySlotAndType<BoxInstance>(inv.Slot, InventoryType.Equipment);
+                        ItemInstance newInv;
+                        byte numberOfItem = 1;
+                        switch (raidBox.Design)
+                        {
+                            case 0: //CUBY
+                                newInv = session.Character.Inventory.AddNewToInventory(265, numberOfItem);
+                                break;
+                            case 1: //XYXY
+                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                                break;
+                            case 2: //CASTRA
+                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                                break;
+                            case 3: //JACK
+                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                                break;
+                            case 4: //SLADE
+                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                                break;
+                            case 13: //DRACO
+                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                                break;
+                            case 14: //GLAGLA
+                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                                break;
+                            case 15: //KERTOS
+                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                                break;
+                            case 16: //VALAKUS
+                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                                break;
+                            case 17: //GRENIGAS
+                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                                break;
+                            default:
+                                newInv = session.Character.Inventory.AddNewToInventory(265, numberOfItem);
+                                break;
+                        }
+                        if (newInv != null)
+                        {
+                            newInv.Rare = raidBox.Rare;
+                            WearableInstance raidBoxItem = session.Character.Inventory.LoadBySlotAndType<WearableInstance>(newInv.Slot, newInv.Type);
+                            if (raidBoxItem != null && (raidBoxItem.Item.EquipmentSlot == EquipmentType.Armor || raidBoxItem.Item.EquipmentSlot == EquipmentType.MainWeapon || raidBoxItem.Item.EquipmentSlot == EquipmentType.SecondaryWeapon))
+                            {
+                                raidBoxItem.SetRarityPoint();
+                            }
+
+                            short Slot = inv.Slot;
+                            if (Slot != -1)
+                            {
+                                session.SendPacket($"rdi {raidBoxItem.Item.VNum} {numberOfItem}");
+                                session.SendPacket(session.Character.GenerateSay($"{Language.Instance.GetMessageFromKey("ITEM_ACQUIRED")}: {raidBoxItem.Item.Name}", 12));
+                                session.SendPacket(session.Character.GenerateInventoryAdd(raidBoxItem.ItemVNum, newInv.Amount, raidBoxItem.Type, newInv.Slot, raidBoxItem.Rare, 0, 0, 0));
+                                session.Character.Inventory.RemoveItemAmountFromInventory(1, raidBox.Id);
+                            }
+                        }
+                    }
+                    break;
                 case 69:
                     if (EffectValue == 1 || EffectValue == 2)
                     {
