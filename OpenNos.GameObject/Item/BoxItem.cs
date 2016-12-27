@@ -195,12 +195,14 @@ namespace OpenNos.GameObject
                         if (newInv != null)
                         {
                             dynamic raidBoxItem;
-                            if (newInv.Type == InventoryType.Equipment &&
-                                    (newInv.Item.EquipmentSlot == EquipmentType.Armor ||
-                                     newInv.Item.EquipmentSlot == EquipmentType.MainWeapon ||
-                                     newInv.Item.EquipmentSlot == EquipmentType.SecondaryWeapon))
+                            if (newInv.Type == InventoryType.Equipment)
                             {
-                                newInv.Rare = raidBox.Rare;
+                                if (newInv.Item.EquipmentSlot == EquipmentType.Armor ||
+                                    newInv.Item.EquipmentSlot == EquipmentType.MainWeapon ||
+                                    newInv.Item.EquipmentSlot == EquipmentType.SecondaryWeapon)
+                                {
+                                    newInv.Rare = raidBox.Rare;
+                                }
                                 raidBoxItem =
                                     session.Character.Inventory.LoadBySlotAndType<WearableInstance>(newInv.Slot,
                                         newInv.Type);
