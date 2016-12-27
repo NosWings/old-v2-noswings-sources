@@ -3125,6 +3125,9 @@ namespace OpenNos.GameObject
                                 case 2532:
                                     newItem.Design = 3;
                                     break;
+                                case 2539:
+                                    newItem.Design = 15;
+                                    break;
                                 case 2542:
                                     newItem.Design = 4;
                                     break;
@@ -3135,7 +3138,7 @@ namespace OpenNos.GameObject
                                     newItem.Design = 14;
                                     break;
                                 case 2589:
-                                    newItem.Design = 15;
+                                    newItem.Design = 17;
                                     break;
                                 case 2593:
                                     newItem.Design = 9;
