@@ -59,10 +59,86 @@ namespace OpenNos.GameObject
 
         List<S_RaidBoxItem> cuby_loots = new List<S_RaidBoxItem>
         {
-            new S_RaidBoxItem(10, 265, 20),
-            new S_RaidBoxItem(50, 2282, 50), // Plume d'ange
-            new S_RaidBoxItem(30, 1030, 30)  // Pleine lune
+            new S_RaidBoxItem(1, 265, 10),      // Doigt rouge
+            new S_RaidBoxItem(1, 262, 10),      // Elvin
+            new S_RaidBoxItem(1, 268, 10),      // Sage rouge
+            new S_RaidBoxItem(1, 321, 15),      // Chaussure d'éclat
+            new S_RaidBoxItem(1, 315, 15),      // Gant de flammes
+            new S_RaidBoxItem(3, 2282, 20),     // Plume d'ange
+            new S_RaidBoxItem(3, 1030, 20)      // Pleine lune
         };
+        
+        List<S_RaidBoxItem> xyxy_loots = new List<S_RaidBoxItem>
+        {
+            new S_RaidBoxItem(1, 289, 9),       // Scrammer
+            new S_RaidBoxItem(1, 293, 9),       // Arme de charme plaz
+            new S_RaidBoxItem(1, 291, 9),       // Arbalète Winslet
+            new S_RaidBoxItem(1, 271, 9),       // Sage bleu
+            new S_RaidBoxItem(1, 295, 9),       // Regarde du gardien
+            new S_RaidBoxItem(1, 297, 9),       // Défenseur brave
+            new S_RaidBoxItem(4, 2282, 23),     // Plume d'ange
+            new S_RaidBoxItem(4, 1030, 23)      // Pleine lune
+        };
+
+        List<S_RaidBoxItem> castra_loots = new List<S_RaidBoxItem>
+        {
+            new S_RaidBoxItem(1, 266, 10),      // Paix verte
+            new S_RaidBoxItem(1, 269, 10),      // Chuchotement du fântome
+            new S_RaidBoxItem(1, 263, 10),      // Glorieux
+            new S_RaidBoxItem(1, 318, 15),      // Gant de mort
+            new S_RaidBoxItem(1, 320, 15),      // Bottes de vague
+            new S_RaidBoxItem(5, 2282, 20),     // Plume d'ange
+            new S_RaidBoxItem(5, 1030, 20)      // Pleine lune
+        };
+
+        List<S_RaidBoxItem> jack_loots = new List<S_RaidBoxItem>
+        {
+            new S_RaidBoxItem(1, 290, 6),       // Kriss
+            new S_RaidBoxItem(1, 292, 6),       // Arbalète Balenty
+            new S_RaidBoxItem(1, 294, 6),       // Arme de charme rai
+            new S_RaidBoxItem(1, 272, 6),       // Robe D'essai
+            new S_RaidBoxItem(1, 296, 6),       // Marche de brise
+            new S_RaidBoxItem(1, 298, 6),       // Défenseur splendide
+            new S_RaidBoxItem(1, 319, 13),      // Botte de feu
+            new S_RaidBoxItem(1, 316, 13),      // Gants de tempête
+            new S_RaidBoxItem(6, 2282, 19),     // Plume d'ange
+            new S_RaidBoxItem(6, 1030, 19)      // Pleine lune
+        };
+
+        List<S_RaidBoxItem> slade_loots = new List<S_RaidBoxItem>
+        {
+            new S_RaidBoxItem(1, 270, 10),      // Majestueux
+            new S_RaidBoxItem(1, 264, 10),      // Main
+            new S_RaidBoxItem(1, 267, 10),      // Arc majestueux
+            new S_RaidBoxItem(1, 317, 15),      // Gant divin
+            new S_RaidBoxItem(1, 322, 15),      // Chaussure de l'obscurité
+            new S_RaidBoxItem(7, 2282, 20),     // Plume d'ange
+            new S_RaidBoxItem(7, 1030, 20)      // Pleine lune
+        };
+
+        List<S_RaidBoxItem> ibra_loots = new List<S_RaidBoxItem>
+        {
+            new S_RaidBoxItem(5, 1872, 5),      // Pièces d'or
+            new S_RaidBoxItem(15, 1873, 15),    // Pièces d'argent
+            new S_RaidBoxItem(30, 1874, 30),    // Pièces de cuivre
+            new S_RaidBoxItem(7, 2282, 35),     // Plume d'ange
+            new S_RaidBoxItem(7, 1030, 35)      // Pleine lune
+        };
+
+        List<S_RaidBoxItem> kertos_loots = new List<S_RaidBoxItem>
+        {
+            new S_RaidBoxItem(5, 1872, 5),      // Pièces d'or
+            new S_RaidBoxItem(15, 1873, 15),    // Pièces d'argent
+            new S_RaidBoxItem(30, 1874, 30),    // Pièces de cuivre
+            new S_RaidBoxItem(5, 1872, 5),      // Pièces d'or
+            new S_RaidBoxItem(15, 1873, 15),    // Pièces d'argent
+            new S_RaidBoxItem(30, 1874, 30),    // Pièces de cuivre
+            new S_RaidBoxItem(5, 1872, 5),      // Pièces d'or
+            new S_RaidBoxItem(15, 1873, 15),    // Pièces d'argent
+            new S_RaidBoxItem(7, 2282, 35),     // Plume d'ange
+            new S_RaidBoxItem(7, 1030, 35)      // Pleine lune
+        };
+
 
         public override void Use(ClientSession session, ref ItemInstance inv, bool delay = false, string[] packetsplit = null)
         {
@@ -77,20 +153,20 @@ namespace OpenNos.GameObject
                         switch (raidBox.Design)
                         {
                             case 1: //XYXY
-                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(xyxy_loots), numberOfItem);
                                 break;
                             case 2: //CASTRA
-                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(castra_loots), numberOfItem);
                                 break;
                             case 3: //JACK
-                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(jack_loots), numberOfItem);
                                 break;
                             case 4: //SLADE
-                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(slade_loots), numberOfItem);
                                 break;
                             case 9: //IBRAHIM
                                 numberOfItem = 50;
-                                newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
+                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(ibra_loots), numberOfItem);
                                 break;
                             case 13: //KERTOS
                                 numberOfItem = 30;
