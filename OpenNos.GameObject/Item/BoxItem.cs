@@ -34,11 +34,11 @@ namespace OpenNos.GameObject
 
         class S_RaidBoxItem
         {
-            public int amount;
+            public byte amount;
             public short itemvnum;
             public float drop_chance; // <= 100.00
 
-            public S_RaidBoxItem(int amount, short itemvnum, float drop_chance)
+            public S_RaidBoxItem(byte amount, short itemvnum, float drop_chance)
             {
                 this.amount = amount;
                 this.itemvnum = itemvnum;
@@ -46,7 +46,7 @@ namespace OpenNos.GameObject
             }
         }
 
-        private short gen_random_id(List<S_RaidBoxItem> items)
+        private S_RaidBoxItem gen_random_item(List<S_RaidBoxItem> items)
         {
             List<S_RaidBoxItem> tmp = new List<S_RaidBoxItem>();
 
@@ -54,7 +54,7 @@ namespace OpenNos.GameObject
                 for (int i = 0; i < item.drop_chance; i++)
                     tmp.Add(item);
 
-            return tmp[new Random().Next(tmp.Count)].itemvnum;
+            return tmp[new Random().Next(tmp.Count)];
         }
 
         List<S_RaidBoxItem> cuby_loots = new List<S_RaidBoxItem>
@@ -207,6 +207,7 @@ namespace OpenNos.GameObject
 
         public override void Use(ClientSession session, ref ItemInstance inv, bool delay = false, string[] packetsplit = null)
         {
+            S_RaidBoxItem rand_item;
             switch (Effect)
             {
                 case 0:
@@ -218,43 +219,48 @@ namespace OpenNos.GameObject
                         switch (raidBox.Design)
                         {
                             case 1: //XYXY
-                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(xyxy_loots), numberOfItem);
+                                rand_item = gen_random_item(xyxy_loots);
+                                newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum, rand_item.amount);
                                 break;
                             case 2: //CASTRA
-                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(castra_loots), numberOfItem);
+                                rand_item = gen_random_item(castra_loots);
+                                newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum, rand_item.amount);
                                 break;
                             case 3: //JACK
-                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(jack_loots), numberOfItem);
+                                rand_item = gen_random_item(jack_loots);
+                                newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum, rand_item.amount);
                                 break;
                             case 4: //SLADE
-                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(slade_loots), numberOfItem);
+                                rand_item = gen_random_item(slade_loots);
+                                newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum, rand_item.amount);
                                 break;
                             case 9: //IBRAHIM
-                                numberOfItem = 50;
-                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(ibra_loots), numberOfItem);
+                                rand_item = gen_random_item(ibra_loots);
+                                newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum, rand_item.amount);
                                 break;
                             case 13: //KERTOS
-                                numberOfItem = 30;
-                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(kertos_loots), numberOfItem);
+                                rand_item = gen_random_item(kertos_loots);
+                                newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum, rand_item.amount);
                                 break;
                             case 14: //VALAKUS
-                                numberOfItem = 40;
-                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(valakus_loots), numberOfItem);
+                                rand_item = gen_random_item(valakus_loots);
+                                newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum, rand_item.amount);
                                 break;
                             case 15: //GRENIGAS
-                                numberOfItem = 50;
-                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(grenigas_loots), numberOfItem);
+                                rand_item = gen_random_item(grenigas_loots);
+                                newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum, rand_item.amount);
                                 break;
                             case 16: //DRACO
-                                numberOfItem = 10;
-                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(draco_loots), numberOfItem);
+                                rand_item = gen_random_item(draco_loots);
+                                newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum, rand_item.amount);
                                 break;
                             case 17: //GLAGLA
-                                numberOfItem = 20;
-                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(glagla_loots), numberOfItem);
+                                rand_item = gen_random_item(glagla_loots);
+                                newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum, rand_item.amount);
                                 break;
                             default: //CUBY
-                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(cuby_loots), numberOfItem);
+                                rand_item = gen_random_item(cuby_loots);
+                                newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum, rand_item.amount);
                                 break;
                         }
                         if (newInv != null)
