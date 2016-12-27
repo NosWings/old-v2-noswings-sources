@@ -80,11 +80,24 @@ namespace OpenNos.GameObject
                         }
                         if (newInv != null)
                         {
-                            newInv.Rare = raidBox.Rare;
-                            WearableInstance raidBoxItem = session.Character.Inventory.LoadBySlotAndType<WearableInstance>(newInv.Slot, newInv.Type);
-                            if (raidBoxItem != null && (raidBoxItem.Item.EquipmentSlot == EquipmentType.Armor || raidBoxItem.Item.EquipmentSlot == EquipmentType.MainWeapon || raidBoxItem.Item.EquipmentSlot == EquipmentType.SecondaryWeapon))
+                            dynamic raidBoxItem;
+                            if (newInv.Type == InventoryType.Equipment)
                             {
-                                raidBoxItem.SetRarityPoint();
+                                newInv.Rare = raidBox.Rare;
+                                raidBoxItem =
+                                    session.Character.Inventory.LoadBySlotAndType<WearableInstance>(newInv.Slot,
+                                        newInv.Type);
+                                if (raidBoxItem != null &&
+                                    (raidBoxItem.Item.EquipmentSlot == EquipmentType.Armor ||
+                                     raidBoxItem.Item.EquipmentSlot == EquipmentType.MainWeapon ||
+                                     raidBoxItem.Item.EquipmentSlot == EquipmentType.SecondaryWeapon))
+                                {
+                                    raidBoxItem.SetRarityPoint();
+                                }
+                            }
+                            else
+                            {
+                                raidBoxItem = session.Character.Inventory.LoadBySlotAndType<ItemInstance>(newInv.Slot, newInv.Type);
                             }
 
                             short Slot = inv.Slot;
