@@ -3124,17 +3124,17 @@ namespace OpenNos.GameObject
                                 case 2542:
                                     newItem.Design = 4;
                                     break;
-                                case 2589:
-                                    newItem.Design = 17;
-                                    break;
-                                case 2593:
+                                case 2555:
                                     newItem.Design = 13;
                                     break;
-                                case 2555:
+                                case 2558:
                                     newItem.Design = 14;
                                     break;
-                                case 2558:
+                                case 2589:
                                     newItem.Design = 15;
+                                    break;
+                                case 2593:
+                                    newItem.Design = 9;
                                     break;
                                 default:
                                     newItem.Design = 0;
