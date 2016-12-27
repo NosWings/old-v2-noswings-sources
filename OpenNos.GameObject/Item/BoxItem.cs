@@ -12,9 +12,11 @@
  * GNU General Public License for more details.
  */
 
+using System;
 using OpenNos.Core;
 using OpenNos.Data;
 using OpenNos.Domain;
+using System.Collections.Generic;
 
 namespace OpenNos.GameObject
 {
@@ -29,6 +31,38 @@ namespace OpenNos.GameObject
         #endregion
 
         #region Methods
+
+        class S_RaidBoxItem
+        {
+            public int amount;
+            public short itemvnum;
+            public float drop_chance; // <= 100.00
+
+            public S_RaidBoxItem(int amount, short itemvnum, float drop_chance)
+            {
+                this.amount = amount;
+                this.itemvnum = itemvnum;
+                this.drop_chance = drop_chance;
+            }
+        }
+
+        private short gen_random_id(List<S_RaidBoxItem> items)
+        {
+            List<S_RaidBoxItem> tmp = new List<S_RaidBoxItem>();
+
+            foreach (S_RaidBoxItem item in items)
+                for (int i = 0; i < item.drop_chance; i++)
+                    tmp.Add(item);
+
+            return tmp[new Random().Next(tmp.Count)].itemvnum;
+        }
+
+        List<S_RaidBoxItem> cuby_loots = new List<S_RaidBoxItem>
+        {
+            new S_RaidBoxItem(10, 265, 20),
+            new S_RaidBoxItem(50, 2282, 50), // Plume d'ange
+            new S_RaidBoxItem(30, 1030, 30)  // Pleine lune
+        };
 
         public override void Use(ClientSession session, ref ItemInstance inv, bool delay = false, string[] packetsplit = null)
         {
@@ -79,7 +113,7 @@ namespace OpenNos.GameObject
                                 newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
                                 break;
                             default: //CUBY
-                                newInv = session.Character.Inventory.AddNewToInventory(265, numberOfItem);
+                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(cuby_loots), numberOfItem);
                                 break;
                         }
                         if (newInv != null)
