@@ -139,52 +139,97 @@ namespace OpenNos.Handler
                             DAOFactory.CharacterSkillDAO.InsertOrUpdate(sk3);
 
                             IList<ItemInstanceDTO> startupInventory = new List<ItemInstanceDTO>();
-                            ItemInstance inventory = new WearableInstance // first weapon
+                            ItemInstance inventory = new WearableInstance() // Baton R7+5
                             {
                                 CharacterId = newCharacter.CharacterId,
                                 Slot = (byte)EquipmentType.MainWeapon,
                                 Type = InventoryType.Wear,
                                 Amount = 1,
                                 ItemVNum = 1,
+                                Rare = 7,
+                                Upgrade = 5,
                             };
                             startupInventory.Add(inventory);
 
-                            inventory = new WearableInstance() // second weapon
+                            inventory = new WearableInstance() // Catapulte R7+5
                             {
                                 CharacterId = newCharacter.CharacterId,
                                 Slot = (byte)EquipmentType.SecondaryWeapon,
                                 Type = InventoryType.Wear,
                                 Amount = 1,
-                                ItemVNum = 8
+                                ItemVNum = 8,
+                                Rare = 7,
+                                Upgrade = 5,
                             };
                             startupInventory.Add(inventory);
 
-                            inventory = new WearableInstance() // armor
+                            inventory = new WearableInstance() // Armure R7+5
                             {
                                 CharacterId = newCharacter.CharacterId,
                                 Slot = (byte)EquipmentType.Armor,
                                 Type = InventoryType.Wear,
                                 Amount = 1,
-                                ItemVNum = 12
+                                ItemVNum = 12,
+                                Rare = 7,
+                                Upgrade = 5,
                             };
                             startupInventory.Add(inventory);
 
-                            inventory = new ItemInstance() // snack
+                            inventory = new ItemInstance() // Poulet Brulant x10
                             {
                                 CharacterId = newCharacter.CharacterId,
                                 Type = InventoryType.Etc,
                                 Amount = 10,
-                                ItemVNum = 2024
+                                ItemVNum = 2351,
                             };
                             startupInventory.Add(inventory);
 
-                            inventory = new ItemInstance() // ammo
+                            inventory = new ItemInstance() // Munitions pour catapulte x50
                             {
                                 CharacterId = newCharacter.CharacterId,
                                 Slot = 1,
                                 Type = InventoryType.Etc,
                                 Amount = 1,
                                 ItemVNum = 2081
+                            };
+                            startupInventory.Add(inventory);
+
+                            inventory = new ItemInstance() // Grande potion HP x10
+                            {
+                                CharacterId = newCharacter.CharacterId,
+                                Type = InventoryType.Main,
+                                Amount = 10,
+                                ItemVNum = 1004,
+                            };
+                            startupInventory.Add(inventory);
+
+                            inventory = new ItemInstance() // Grande potion MP x10
+                            {
+                                CharacterId = newCharacter.CharacterId,
+                                Type = InventoryType.Main,
+                                Slot = 1,
+                                Amount = 10,
+                                ItemVNum = 1007,
+                            };
+                            startupInventory.Add(inventory);
+
+                            inventory = new ItemInstance() // Grande potion de récupération x5
+                            {
+                                CharacterId = newCharacter.CharacterId,
+                                Type = InventoryType.Main,
+                                Slot = 2,
+                                Amount = 5,
+                                ItemVNum = 1010,
+                            };
+                            startupInventory.Add(inventory);
+
+                            inventory = new ItemInstance() // Tapis Magique
+                            {
+                                CharacterId = newCharacter.CharacterId,
+                                Type = InventoryType.Main,
+                                Slot = 3,
+                                Amount = 1,
+                                ItemVNum = 1907,
                             };
                             startupInventory.Add(inventory);
 
