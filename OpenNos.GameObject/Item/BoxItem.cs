@@ -54,12 +54,8 @@ namespace OpenNos.GameObject
                             case 4: //SLADE
                                 newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
                                 break;
-                            case 16: //DRACO
-                                numberOfItem = 10;
-                                newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
-                                break;
-                            case 17: //GLAGLA
-                                numberOfItem = 20;
+                            case 9: //IBRAHIM
+                                numberOfItem = 50;
                                 newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
                                 break;
                             case 13: //KERTOS
@@ -72,6 +68,14 @@ namespace OpenNos.GameObject
                                 break;
                             case 15: //GRENIGAS
                                 numberOfItem = 50;
+                                newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
+                                break;
+                            case 16: //DRACO
+                                numberOfItem = 10;
+                                newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
+                                break;
+                            case 17: //GLAGLA
+                                numberOfItem = 20;
                                 newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
                                 break;
                             default: //CUBY
