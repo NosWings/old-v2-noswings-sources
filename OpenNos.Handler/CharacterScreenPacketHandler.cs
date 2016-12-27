@@ -80,6 +80,8 @@ namespace OpenNos.Handler
                                 Gender = (GenderType)Enum.Parse(typeof(GenderType), packetsplit[4]),
                                 HairColor = (HairColorType)Enum.Parse(typeof(HairColorType), packetsplit[6]),
                                 HairStyle = (HairStyleType)Enum.Parse(typeof(HairStyleType), packetsplit[5]),
+                                Backpack = 1,
+                                Gold = 150000,
                                 Hp = 221,
                                 JobLevel = 1,
                                 Level = 1,
