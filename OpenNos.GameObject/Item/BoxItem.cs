@@ -127,18 +127,83 @@ namespace OpenNos.GameObject
 
         List<S_RaidBoxItem> kertos_loots = new List<S_RaidBoxItem>
         {
-            new S_RaidBoxItem(5, 1872, 5),      // Pièces d'or
-            new S_RaidBoxItem(15, 1873, 15),    // Pièces d'argent
-            new S_RaidBoxItem(30, 1874, 30),    // Pièces de cuivre
-            new S_RaidBoxItem(5, 1872, 5),      // Pièces d'or
-            new S_RaidBoxItem(15, 1873, 15),    // Pièces d'argent
-            new S_RaidBoxItem(30, 1874, 30),    // Pièces de cuivre
-            new S_RaidBoxItem(5, 1872, 5),      // Pièces d'or
-            new S_RaidBoxItem(15, 1873, 15),    // Pièces d'argent
-            new S_RaidBoxItem(7, 2282, 35),     // Plume d'ange
-            new S_RaidBoxItem(7, 1030, 35)      // Pleine lune
+            new S_RaidBoxItem(50, 2900, 30),     // Diamants brisés
+            new S_RaidBoxItem(25, 2901, 20),     // Diamants Intacts
+            new S_RaidBoxItem(15, 2505, 10),     // Cristal terrestre
+            new S_RaidBoxItem(1, 4912, 6),       // Dague 92
+            new S_RaidBoxItem(1, 4909, 6),       // Arba 92
+            new S_RaidBoxItem(1, 4915, 6),       // Pisto 92
+            new S_RaidBoxItem(1, 4917, 7),       // Pistolet du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4911, 7),       // Arbalète du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4914, 7),       // Dague du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4934, 1)        // Bottes de kertos
         };
 
+        List<S_RaidBoxItem> valakus_loots = new List<S_RaidBoxItem>
+        {
+            new S_RaidBoxItem(50, 2900, 30),     // Diamants brisés
+            new S_RaidBoxItem(25, 2901, 20),     // Diamants Intacts
+            new S_RaidBoxItem(15, 2505, 10),     // Cristal terrestre
+            new S_RaidBoxItem(1, 4924, 6),       // Tunique du phoenix flamboyant
+            new S_RaidBoxItem(1, 4918, 6),       // Armure à plaques du géant de flammes
+            new S_RaidBoxItem(1, 4921, 6),       // Armure en cuir du géant de braise
+            new S_RaidBoxItem(1, 4926, 7),       // Robe du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4920, 7),       // Armure du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4923, 7),       // Tunique du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4932, 1)        // Gant de valakus
+        };
+
+        List<S_RaidBoxItem> grenigas_loots = new List<S_RaidBoxItem>
+        {
+            new S_RaidBoxItem(50, 2900, 30),     // Diamants brisés
+            new S_RaidBoxItem(25, 2901, 20),     // Diamants Intacts
+            new S_RaidBoxItem(15, 2505, 10),     // Cristal terrestre
+            new S_RaidBoxItem(1, 4900, 6),       // Epée incendiaire de Magmaros
+            new S_RaidBoxItem(1, 4903, 6),       // Aile de phoenix
+            new S_RaidBoxItem(1, 4906, 6),       // Spectre de lave
+            new S_RaidBoxItem(1, 4908, 7),       // Baguette du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4902, 7),       // Epée du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4905, 7),       // Arc du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4930, 1)        // Casque des flammes
+        };
+
+        List<S_RaidBoxItem> draco_loots = new List<S_RaidBoxItem>
+        {
+            new S_RaidBoxItem(1, 2514, 1),       // Pierre de SP
+            new S_RaidBoxItem(1, 2515, 1),       // Pierre de SP
+            new S_RaidBoxItem(1, 2516, 1),       // Pierre de SP
+            new S_RaidBoxItem(1, 2517, 1),       // Pierre de SP
+            new S_RaidBoxItem(1, 2518, 1),       // Pierre de SP
+            new S_RaidBoxItem(1, 2519, 1),       // Pierre de SP
+            new S_RaidBoxItem(1, 2520, 1),       // Pierre de SP
+            new S_RaidBoxItem(1, 2521, 1),       // Pierre de SP
+            new S_RaidBoxItem(1, 4500, 5),       // SP5
+            new S_RaidBoxItem(1, 4501, 5),       // SP5
+            new S_RaidBoxItem(1, 4502, 5),       // SP5
+            new S_RaidBoxItem(2, 2349, 20),      // Pierre brillante bleu ciel
+            new S_RaidBoxItem(3, 2349, 20),      // Pierre brillante bleu ciel
+            new S_RaidBoxItem(10, 2282, 18),     // Plume d'ange
+            new S_RaidBoxItem(5, 1030, 19)       // Pleine lune
+        };
+
+        List<S_RaidBoxItem> glagla_loots = new List<S_RaidBoxItem>
+        {
+            new S_RaidBoxItem(1, 2514, 1),       // Pierre de SP
+            new S_RaidBoxItem(1, 2515, 1),       // Pierre de SP
+            new S_RaidBoxItem(1, 2516, 1),       // Pierre de SP
+            new S_RaidBoxItem(1, 2517, 1),       // Pierre de SP
+            new S_RaidBoxItem(1, 2518, 1),       // Pierre de SP
+            new S_RaidBoxItem(1, 2519, 1),       // Pierre de SP
+            new S_RaidBoxItem(1, 2520, 1),       // Pierre de SP
+            new S_RaidBoxItem(1, 2521, 1),       // Pierre de SP
+            new S_RaidBoxItem(1, 4497, 5),       // SP6
+            new S_RaidBoxItem(1, 4498, 5),       // SP6
+            new S_RaidBoxItem(1, 4499, 5),       // SP6
+            new S_RaidBoxItem(2, 2349, 20),      // Pierre brillante bleu ciel
+            new S_RaidBoxItem(3, 2349, 20),      // Pierre brillante bleu ciel
+            new S_RaidBoxItem(10, 2282, 18),     // Plume d'ange
+            new S_RaidBoxItem(5, 1030, 19)       // Pleine lune
+        };
 
         public override void Use(ClientSession session, ref ItemInstance inv, bool delay = false, string[] packetsplit = null)
         {
@@ -170,23 +235,23 @@ namespace OpenNos.GameObject
                                 break;
                             case 13: //KERTOS
                                 numberOfItem = 30;
-                                newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
+                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(kertos_loots), numberOfItem);
                                 break;
                             case 14: //VALAKUS
                                 numberOfItem = 40;
-                                newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
+                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(valakus_loots), numberOfItem);
                                 break;
                             case 15: //GRENIGAS
                                 numberOfItem = 50;
-                                newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
+                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(grenigas_loots), numberOfItem);
                                 break;
                             case 16: //DRACO
                                 numberOfItem = 10;
-                                newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
+                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(draco_loots), numberOfItem);
                                 break;
                             case 17: //GLAGLA
                                 numberOfItem = 20;
-                                newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
+                                newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(glagla_loots), numberOfItem);
                                 break;
                             default: //CUBY
                                 newInv = session.Character.Inventory.AddNewToInventory(gen_random_id(cuby_loots), numberOfItem);
