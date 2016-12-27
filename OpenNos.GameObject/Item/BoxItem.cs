@@ -42,9 +42,6 @@ namespace OpenNos.GameObject
                         byte numberOfItem = 1;
                         switch (raidBox.Design)
                         {
-                            case 0: //CUBY
-                                newInv = session.Character.Inventory.AddNewToInventory(265, numberOfItem);
-                                break;
                             case 1: //XYXY
                                 newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
                                 break;
@@ -57,20 +54,25 @@ namespace OpenNos.GameObject
                             case 4: //SLADE
                                 newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
                                 break;
-                            case 13: //DRACO
-                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                            case 16: //DRACO
+                                numberOfItem = 10;
+                                newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
                                 break;
-                            case 14: //GLAGLA
-                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                            case 17: //GLAGLA
+                                numberOfItem = 20;
+                                newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
                                 break;
-                            case 15: //KERTOS
-                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                            case 13: //KERTOS
+                                numberOfItem = 30;
+                                newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
                                 break;
-                            case 16: //VALAKUS
-                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                            case 14: //VALAKUS
+                                numberOfItem = 40;
+                                newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
                                 break;
-                            case 17: //GRENIGAS
-                                newInv = session.Character.Inventory.AddNewToInventory(289, numberOfItem);
+                            case 15: //GRENIGAS
+                                numberOfItem = 50;
+                                newInv = session.Character.Inventory.AddNewToInventory(2282, numberOfItem);
                                 break;
                             default:
                                 newInv = session.Character.Inventory.AddNewToInventory(265, numberOfItem);

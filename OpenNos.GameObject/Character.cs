@@ -3101,9 +3101,45 @@ namespace OpenNos.GameObject
                     ItemInstance newItem = Inventory.InstantiateItemInstance(itemVNum, CharacterId, amount);
                     if (newItem != null)
                     {
-                        if (newItem.Item.ItemType == ItemType.Armor || newItem.Item.ItemType == ItemType.Weapon || newItem.Item.ItemType == ItemType.Shell)
+                        if (newItem.Item.ItemType == ItemType.Armor || newItem.Item.ItemType == ItemType.Weapon || newItem.Item.ItemType == ItemType.Shell || newItem.ItemVNum == 302)
                         {
                             ((WearableInstance)newItem).RarifyItem(Session, RarifyMode.Drop, RarifyProtection.None);
+                        }
+                        if (newItem.ItemVNum == 302)
+                        {
+                            switch (MapId)
+                            {
+                                case 2522:
+                                    newItem.Design = 1;
+                                    break;
+                                case 2502:
+                                    newItem.Design = 2;
+                                    break;
+                                case 2532:
+                                    newItem.Design = 3;
+                                    break;
+                                case 2542:
+                                    newItem.Design = 4;
+                                    break;
+                                case 220:
+                                    newItem.Design = 16;
+                                    break;
+                                case 2589:
+                                    newItem.Design = 17;
+                                    break;
+                                case 2593:
+                                    newItem.Design = 13;
+                                    break;
+                                case 2555:
+                                    newItem.Design = 14;
+                                    break;
+                                case 2558:
+                                    newItem.Design = 15;
+                                    break;
+                                default:
+                                    newItem.Design = 0;
+                                    break;
+                            }
                         }
                         ItemInstance newInv = Inventory.AddToInventory(newItem);
                         if (newInv != null)
