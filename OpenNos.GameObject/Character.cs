@@ -1487,10 +1487,14 @@ namespace OpenNos.GameObject
                 Dignity += (float)0.5;
                 if (Dignity == (int)Dignity)
                 {
-                    Session.SendPacket(GenerateFd());
-                    Session.CurrentMap?.Broadcast(Session, GenerateIn(), ReceiverType.AllExceptMe);
                     Session.SendPacket(GenerateSay(Language.Instance.GetMessageFromKey("RESTORE_DIGNITY"), 11));
                 }
+                if (MapId != 150)
+                {
+                    Reput += monsterinfo.Level * 3;
+                }
+                Session.SendPacket(GenerateFd());
+                Session.CurrentMap?.Broadcast(Session, GenerateIn(), ReceiverType.AllExceptMe);
             }
         }
 
@@ -2818,17 +2822,17 @@ namespace OpenNos.GameObject
             {
                 if (specialist != null && UseSp && specialist.SpLevel < 99 && specialist.SpLevel > 19)
                 {
-                    JobLevelXp += GetJXP(monsterinfo, grp) / 2;
+                    JobLevelXp += GetJXP(monsterinfo, grp) / 2 * 2;
                 }
                 else
                 {
-                    JobLevelXp += GetJXP(monsterinfo, grp);
+                    JobLevelXp += GetJXP(monsterinfo, grp) * 2;
                 }
             }
             if (specialist != null && UseSp && specialist.SpLevel < 99)
             {
                 int multiplier = specialist.SpLevel < 10 ? 10 : specialist.SpLevel < 19 ? 5 : 1;
-                specialist.XP += GetJXP(monsterinfo, grp) * multiplier;
+                specialist.XP += GetJXP(monsterinfo, grp) * multiplier * 2;
             }
             double t = XPLoad();
             while (LevelXp >= t)
