@@ -301,11 +301,11 @@ namespace OpenNos.GameObject
                                 raidBoxItem = session.Character.Inventory.LoadBySlotAndType<ItemInstance>(newInv.Slot, newInv.Type);
                             }
 
-                            short Slot = inv.Slot;
-                            if (Slot != -1)
+                            short slot = inv.Slot;
+                            if (slot != -1)
                             {
                                 session.SendPacket($"rdi {raidBoxItem.Item.VNum} {numberOfItem}");
-                                session.SendPacket(session.Character.GenerateSay($"{Language.Instance.GetMessageFromKey("ITEM_ACQUIRED")}: {raidBoxItem.Item.Name}", 12));
+                                session.SendPacket(session.Character.GenerateSay($"{Language.Instance.GetMessageFromKey("ITEM_ACQUIRED")}: {raidBoxItem.Item.Name} x {rand_item.amount}", 12));
                                 session.SendPacket(session.Character.GenerateInventoryAdd(raidBoxItem.ItemVNum, newInv.Amount, raidBoxItem.Type, newInv.Slot, raidBoxItem.Rare, 0, 0, 0));
                                 session.Character.Inventory.RemoveItemAmountFromInventory(1, raidBox.Id);
                             }
