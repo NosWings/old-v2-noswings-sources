@@ -337,7 +337,7 @@ namespace OpenNos.GameObject
                                         $"{Language.Instance.GetMessageFromKey("ITEM_ACQUIRED")}: {raidBoxItem.Item.Name} x {rand_item.amount}",
                                         12));
                                 session.SendPacket(session.Character.GenerateInventoryAdd(raidBoxItem.ItemVNum,
-                                    newInv.Amount, raidBoxItem.Type, newInv.Slot, raidBoxItem.Rare, 0, 0, 0));
+                                    newInv.Amount, raidBoxItem.Type, newInv.Slot, raidBoxItem.Rare, 0, newInv.Upgrade, 0));
                                 session.Character.Inventory.RemoveItemAmountFromInventory(1, raidBox.Id);
                             }
                         }
