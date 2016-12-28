@@ -3938,6 +3938,7 @@ namespace OpenNos.GameObject
 
         private int GetGold(MapMonster mapMonster)
         {
+            int gold = 0;
             if (mapMonster.MapId != 150)
             {
                 Random random = new Random(DateTime.Now.Millisecond + mapMonster.MapMonsterId);
@@ -3947,9 +3948,9 @@ namespace OpenNos.GameObject
                                     false
                     ? 10
                     : 1;
-                int gold = lowBaseGold * ServerManager.GoldRate * actMultiplier;
-                return gold;
+                 gold = lowBaseGold * ServerManager.GoldRate * actMultiplier;
             }
+            return gold;
         }
 
         #endregion
