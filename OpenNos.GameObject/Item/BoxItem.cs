@@ -304,9 +304,16 @@ namespace OpenNos.GameObject
                                         newInv.Upgrade = 10;
                                     }
                                 }
-                                raidBoxItem =
-                                    session.Character.Inventory.LoadBySlotAndType<WearableInstance>(newInv.Slot,
-                                        newInv.Type);
+                                if (newInv.Item.EquipmentSlot == EquipmentType.Sp)
+                                    raidBoxItem =
+                                        session.Character.Inventory.LoadBySlotAndType<SpecialistInstance>(newInv.Slot,
+                                            newInv.Type);
+                                else
+                                {
+                                    raidBoxItem =
+                                        session.Character.Inventory.LoadBySlotAndType<WearableInstance>(newInv.Slot,
+                                            newInv.Type);
+                                }
                                 if (raidBoxItem != null &&
                                     (raidBoxItem.Item.EquipmentSlot == EquipmentType.Armor ||
                                      raidBoxItem.Item.EquipmentSlot == EquipmentType.MainWeapon ||
