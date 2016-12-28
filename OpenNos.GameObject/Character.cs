@@ -1482,20 +1482,21 @@ namespace OpenNos.GameObject
 
         public void GenerateDignity(NpcMonster monsterinfo)
         {
+            if (MapId != 150)
+            {
+                Reput += monsterinfo.Level * 3;
+                Session.SendPacket(GenerateSay("Réputation augmentée au combat : +" + (monsterinfo.Level * 3), 11));
+            }
             if (Level < monsterinfo.Level && Dignity < 100 && Level > 20)
             {
-                if (MapId != 150)
-                {
-                    Reput += monsterinfo.Level * 3;
-                }
                 Dignity += (float)0.5;
                 if (Dignity == (int)Dignity)
                 {
-                    Session.SendPacket(GenerateFd());
-                    Session.CurrentMap?.Broadcast(Session, GenerateIn(), ReceiverType.AllExceptMe);
                     Session.SendPacket(GenerateSay(Language.Instance.GetMessageFromKey("RESTORE_DIGNITY"), 11));
                 }
             }
+            Session.SendPacket(GenerateFd());
+            Session.CurrentMap?.Broadcast(Session, GenerateIn(), ReceiverType.AllExceptMe);
         }
 
         public string GenerateDir()
