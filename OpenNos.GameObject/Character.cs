@@ -1484,18 +1484,18 @@ namespace OpenNos.GameObject
         {
             if (Level < monsterinfo.Level && Dignity < 100 && Level > 20)
             {
+                if (MapId != 150)
+                {
+                    Reput += monsterinfo.Level * 3;
+                }
                 Dignity += (float)0.5;
                 if (Dignity == (int)Dignity)
                 {
+                    Session.SendPacket(GenerateFd());
+                    Session.CurrentMap?.Broadcast(Session, GenerateIn(), ReceiverType.AllExceptMe);
                     Session.SendPacket(GenerateSay(Language.Instance.GetMessageFromKey("RESTORE_DIGNITY"), 11));
                 }
             }
-            if (MapId != 150)
-            {
-                Reput += monsterinfo.Level * 3;
-            }
-            Session.SendPacket(GenerateFd());
-            Session.CurrentMap?.Broadcast(Session, GenerateIn(), ReceiverType.AllExceptMe);
         }
 
         public string GenerateDir()
