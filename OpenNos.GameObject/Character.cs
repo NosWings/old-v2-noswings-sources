@@ -3938,11 +3938,18 @@ namespace OpenNos.GameObject
 
         private int GetGold(MapMonster mapMonster)
         {
-            Random random = new Random(DateTime.Now.Millisecond + mapMonster.MapMonsterId);
-            int lowBaseGold = ServerManager.RandomNumber(6 * mapMonster.Monster?.Level ?? 1, 12 * mapMonster.Monster?.Level ?? 1);
-            int actMultiplier = Session?.CurrentMap?.MapTypes?.Any(s => s.MapTypeId == (short)MapTypeEnum.Act52) ?? false ? 10 : 1;
-            int gold = lowBaseGold * ServerManager.GoldRate * actMultiplier;
-            return gold;
+            if (mapMonster.MapId != 150)
+            {
+                Random random = new Random(DateTime.Now.Millisecond + mapMonster.MapMonsterId);
+                int lowBaseGold = ServerManager.RandomNumber(6 * mapMonster.Monster?.Level ?? 1,
+                    12 * mapMonster.Monster?.Level ?? 1);
+                int actMultiplier = Session?.CurrentMap?.MapTypes?.Any(s => s.MapTypeId == (short) MapTypeEnum.Act52) ??
+                                    false
+                    ? 10
+                    : 1;
+                int gold = lowBaseGold * ServerManager.GoldRate * actMultiplier;
+                return gold;
+            }
         }
 
         #endregion
