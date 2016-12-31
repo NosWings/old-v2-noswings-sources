@@ -1485,7 +1485,7 @@ namespace OpenNos.GameObject
             if (MapId != 150)
             {
                 Reput += monsterinfo.Level * 3;
-                Session.SendPacket(GenerateSay("Réputation augmentée au combat : +" + (monsterinfo.Level * 3), 11));
+                Session.SendPacket(GenerateSay("Réputation augmentée au combat : + " + (monsterinfo.Level * 3), 11));
             }
             if (Level < monsterinfo.Level && Dignity < 100 && Level > 20)
             {
