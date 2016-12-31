@@ -1482,16 +1482,21 @@ namespace OpenNos.GameObject
 
         public void GenerateDignity(NpcMonster monsterinfo)
         {
+            if (MapId != 150)
+            {
+                Reput += monsterinfo.Level * 3;
+                Session.SendPacket(GenerateSay("Réputation augmentée au combat : + " + (monsterinfo.Level * 3), 11));
+            }
             if (Level < monsterinfo.Level && Dignity < 100 && Level > 20)
             {
                 Dignity += (float)0.5;
                 if (Dignity == (int)Dignity)
                 {
-                    Session.SendPacket(GenerateFd());
-                    Session.CurrentMap?.Broadcast(Session, GenerateIn(), ReceiverType.AllExceptMe);
                     Session.SendPacket(GenerateSay(Language.Instance.GetMessageFromKey("RESTORE_DIGNITY"), 11));
                 }
             }
+            Session.SendPacket(GenerateFd());
+            Session.CurrentMap?.Broadcast(Session, GenerateIn(), ReceiverType.AllExceptMe);
         }
 
         public string GenerateDir()
@@ -2818,17 +2823,17 @@ namespace OpenNos.GameObject
             {
                 if (specialist != null && UseSp && specialist.SpLevel < 99 && specialist.SpLevel > 19)
                 {
-                    JobLevelXp += GetJXP(monsterinfo, grp) / 2;
+                    JobLevelXp += GetJXP(monsterinfo, grp) / 2 * 2;
                 }
                 else
                 {
-                    JobLevelXp += GetJXP(monsterinfo, grp);
+                    JobLevelXp += GetJXP(monsterinfo, grp) * 2;
                 }
             }
             if (specialist != null && UseSp && specialist.SpLevel < 99)
             {
                 int multiplier = specialist.SpLevel < 10 ? 10 : specialist.SpLevel < 19 ? 5 : 1;
-                specialist.XP += GetJXP(monsterinfo, grp) * multiplier;
+                specialist.XP += GetJXP(monsterinfo, grp) * multiplier * 2;
             }
             double t = XPLoad();
             while (LevelXp >= t)
@@ -3101,9 +3106,48 @@ namespace OpenNos.GameObject
                     ItemInstance newItem = Inventory.InstantiateItemInstance(itemVNum, CharacterId, amount);
                     if (newItem != null)
                     {
-                        if (newItem.Item.ItemType == ItemType.Armor || newItem.Item.ItemType == ItemType.Weapon || newItem.Item.ItemType == ItemType.Shell)
+                        if (newItem.Item.ItemType == ItemType.Armor || newItem.Item.ItemType == ItemType.Weapon || newItem.Item.ItemType == ItemType.Shell || newItem.ItemVNum == 302)
                         {
                             ((WearableInstance)newItem).RarifyItem(Session, RarifyMode.Drop, RarifyProtection.None);
+                        }
+                        if (newItem.ItemVNum == 302)
+                        {
+                            switch (MapId)
+                            {
+                                case 220:
+                                    newItem.Design = 16;
+                                    break;
+                                case 2502:
+                                    newItem.Design = 2;
+                                    break;
+                                case 2522:
+                                    newItem.Design = 1;
+                                    break;
+                                case 2532:
+                                    newItem.Design = 3;
+                                    break;
+                                case 2539:
+                                    newItem.Design = 15;
+                                    break;
+                                case 2542:
+                                    newItem.Design = 4;
+                                    break;
+                                case 2555:
+                                    newItem.Design = 13;
+                                    break;
+                                case 2558:
+                                    newItem.Design = 14;
+                                    break;
+                                case 2589:
+                                    newItem.Design = 17;
+                                    break;
+                                case 2593:
+                                    newItem.Design = 9;
+                                    break;
+                                default:
+                                    newItem.Design = 0;
+                                    break;
+                            }
                         }
                         ItemInstance newInv = Inventory.AddToInventory(newItem);
                         if (newInv != null)
@@ -3895,10 +3939,18 @@ namespace OpenNos.GameObject
 
         private int GetGold(MapMonster mapMonster)
         {
-            Random random = new Random(DateTime.Now.Millisecond + mapMonster.MapMonsterId);
-            int lowBaseGold = ServerManager.RandomNumber(6 * mapMonster.Monster?.Level ?? 1, 12 * mapMonster.Monster?.Level ?? 1);
-            int actMultiplier = Session?.CurrentMap?.MapTypes?.Any(s => s.MapTypeId == (short)MapTypeEnum.Act52) ?? false ? 10 : 1;
-            int gold = lowBaseGold * ServerManager.GoldRate * actMultiplier;
+            int gold = 0;
+            if (mapMonster.MapId != 150)
+            {
+                Random random = new Random(DateTime.Now.Millisecond + mapMonster.MapMonsterId);
+                int lowBaseGold = ServerManager.RandomNumber(6 * mapMonster.Monster?.Level ?? 1,
+                    12 * mapMonster.Monster?.Level ?? 1);
+                int actMultiplier = Session?.CurrentMap?.MapTypes?.Any(s => s.MapTypeId == (short) MapTypeEnum.Act52) ??
+                                    false
+                    ? 10
+                    : 1;
+                 gold = lowBaseGold * ServerManager.GoldRate * actMultiplier;
+            }
             return gold;
         }
 

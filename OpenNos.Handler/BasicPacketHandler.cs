@@ -1387,9 +1387,14 @@ namespace OpenNos.Handler
             {
                 Assembly assembly = Assembly.GetEntryAssembly();
                 string productVersion = assembly != null && assembly.Location != null ? FileVersionInfo.GetVersionInfo(assembly.Location).ProductVersion : "1337";
-                Session.SendPacket(Session.Character.GenerateSay("----------[World Information]----------", 10));
-                Session.SendPacket(Session.Character.GenerateSay($"OpenNos by OpenNos Team\nVersion : v{productVersion}", 11));
-                Session.SendPacket(Session.Character.GenerateSay("-----------------------------------------------", 10));
+                Session.SendPacket(Session.Character.GenerateSay("-------------------[NosWings]-------------------", 10));
+                Session.SendPacket(Session.Character.GenerateSay("Bienvenue sur le serveur NosWings !", 11));
+                Session.SendPacket(Session.Character.GenerateSay("[SITE] : http://noswings.xyz/", 11));
+                Session.SendPacket(Session.Character.GenerateSay("[FORUM] : http://forum.noswings.xyz/", 11));
+                Session.SendPacket(Session.Character.GenerateSay("[DISCORD] : https://discord.gg/uyFs2yz", 11));
+                Session.SendPacket(Session.Character.GenerateSay("Credits :", 11));
+                Session.SendPacket(Session.Character.GenerateSay("- OpenNos (Emulateur)", 11));
+                Session.SendPacket(Session.Character.GenerateSay("------------------------------------------------", 10));
             }
             Session.Character.LoadSpeed();
             Session.Character.LoadSkills();
