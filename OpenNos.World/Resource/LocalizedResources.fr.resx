@@ -157,19 +157,19 @@
     <value>Ne^donnez^JAMAIS^vos^identifiants^de^connexion^!</value>
   </data>
   <data name="BN2" xml:space="preserve">
-    <value>[SITE]^:^http://noswings.xyz/</value>
+    <value>SITE^:^noswings.xyz</value>
   </data>
   <data name="BN3" xml:space="preserve">
-    <value>[FORUM]^:^http://forum.noswings.xyz/</value>
+    <value>FORUM^:^forum.noswings.xyz</value>
   </data>
   <data name="BN4" xml:space="preserve">
-    <value>[DISCORD]^:^https://discord.gg/uyFs2yz</value>
+    <value>DISCORD^:^https://discord.gg/uyFs2yz</value>
   </data>
   <data name="BN5" xml:space="preserve">
-    <value>[DONATIONS]^:^Contacter un membre du staff</value>
+    <value>Un^problème^?^Contactez^un^membre^du^staff</value>
   </data>
   <data name="BN6" xml:space="preserve">
-    <value>Entrez^dans^la^légende,^découvrez^le^Panthéon</value>
+    <value>Un^avis^?^Une^idée^?^forum.noswings.xyz</value>
   </data>
   <data name="BUFF_BLOCKED" xml:space="preserve">
     <value>À partir de maintenant, le décompte de buff sera masqué.</value>
@@ -817,13 +817,13 @@
     <value>Ton niveau de combat a augmenté !</value>
   </data>
   <data name="BN7" xml:space="preserve">
-    <value>Lisez^le^règlement,^vous^éviterez^des^embêtements^!</value>
+    <value>SITE^:^noswings.xyz</value>
   </data>
   <data name="BN8" xml:space="preserve">
-    <value>Ne^donnez^JAMAIS^vos^identifiants^de^connexion^!</value>
+    <value>Un^avis^?^Une^idée^?^forum.noswings.xyz</value>
   </data>
   <data name="BN9" xml:space="preserve">
-    <value>NosWings^vous^souhaite un^bon^jeu</value>
+    <value>Un^avis^?^Une^idée^?^forum.noswings.xyz</value>
   </data>
   <data name="RECEIVED_ITEM" xml:space="preserve">
     <value>Tu as obtenu cet objet : {0} x 1</value>
@@ -1028,10 +1028,10 @@ Veux-tu le porter ?</value>
     <value>Tu ne peux pas l'utiliser. Ton objet ne remplis pas les conditions</value>
   </data>
   <data name="BOT_MESSAGE_4" xml:space="preserve">
-    <value>[SITE]^:^http://noswings.xyz/</value>
+    <value>SITE^:^noswings.xyz</value>
   </data>
   <data name="BOT_MESSAGE_5" xml:space="preserve">
-    <value>[FORUM]^:^http://forum.noswings.xyz/</value>
+    <value>FORUM^:^forum.noswings.xyz</value>
   </data>
   <data name="SP_NOPOINTS" xml:space="preserve">
     <value>Tu n'as plus assez de point assez, tu ne peux plus te transformer !</value>
