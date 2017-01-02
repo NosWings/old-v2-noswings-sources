@@ -2823,17 +2823,17 @@ namespace OpenNos.GameObject
             {
                 if (specialist != null && UseSp && specialist.SpLevel < 99 && specialist.SpLevel > 19)
                 {
-                    JobLevelXp += GetJXP(monsterinfo, grp) / 2 * 2;
+                    JobLevelXp += GetJXP(monsterinfo, grp) / 2 * 4;
                 }
                 else
                 {
-                    JobLevelXp += GetJXP(monsterinfo, grp) * 2;
+                    JobLevelXp += GetJXP(monsterinfo, grp) * 4;
                 }
             }
             if (specialist != null && UseSp && specialist.SpLevel < 99)
             {
                 int multiplier = specialist.SpLevel < 10 ? 10 : specialist.SpLevel < 19 ? 5 : 1;
-                specialist.XP += GetJXP(monsterinfo, grp) * multiplier * 2;
+                specialist.XP += GetJXP(monsterinfo, grp) * multiplier * 4;
             }
             double t = XPLoad();
             while (LevelXp >= t)
