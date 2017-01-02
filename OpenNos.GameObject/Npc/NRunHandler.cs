@@ -35,24 +35,26 @@ namespace OpenNos.GameObject
             switch (runner)
             {
                 case 1:
-                    if (Session.Character.Class != (byte)ClassType.Adventurer)
+                    if (Session.Character.Class != (byte) ClassType.Adventurer)
                     {
-                        Session.SendPacket(Session.Character.GenerateMsg(Language.Instance.GetMessageFromKey("NOT_ADVENTURER"), 0));
+                        Session.SendPacket(
+                            Session.Character.GenerateMsg(Language.Instance.GetMessageFromKey("NOT_ADVENTURER"), 0));
                         return;
                     }
                     if (Session.Character.Level < 15 || Session.Character.JobLevel < 20)
                     {
-                        Session.SendPacket(Session.Character.GenerateMsg(Language.Instance.GetMessageFromKey("LOW_LVL"), 0));
+                        Session.SendPacket(Session.Character.GenerateMsg(
+                            Language.Instance.GetMessageFromKey("LOW_LVL"), 0));
                         return;
                     }
-                    if (type == (byte)Session.Character.Class)
+                    if (type == (byte) Session.Character.Class)
                     {
                         return;
                     }
                     if (Session.Character.Inventory.GetAllItems().All(i => i.Type != InventoryType.Wear))
                     {
-                        Session.Character.Inventory.AddNewToInventory((short)(4 + type * 14), type: InventoryType.Wear);
-                        Session.Character.Inventory.AddNewToInventory((short)(81 + type * 13), type: InventoryType.Wear);
+                        Session.Character.Inventory.AddNewToInventory((short) (4 + type * 14), type: InventoryType.Wear);
+                        Session.Character.Inventory.AddNewToInventory((short) (81 + type * 13), type: InventoryType.Wear);
                         switch (type)
                         {
                             case 1:
@@ -71,11 +73,12 @@ namespace OpenNos.GameObject
                         }
                         Session.CurrentMap?.Broadcast(Session.Character.GenerateEq());
                         Session.SendPacket(Session.Character.GenerateEquipment());
-                        Session.Character.ChangeClass((ClassType)type);
+                        Session.Character.ChangeClass((ClassType) type);
                     }
                     else
                     {
-                        Session.SendPacket(Session.Character.GenerateMsg(Language.Instance.GetMessageFromKey("EQ_NOT_EMPTY"), 0));
+                        Session.SendPacket(
+                            Session.Character.GenerateMsg(Language.Instance.GetMessageFromKey("EQ_NOT_EMPTY"), 0));
                     }
                     break;
 
@@ -118,11 +121,14 @@ namespace OpenNos.GameObject
                                 ServerManager.Instance.LeaveMap(Session.Character.CharacterId);
                                 Session.Character.Gold -= 1000 * type;
                                 Session.SendPacket(Session.Character.GenerateGold());
-                                ServerManager.Instance.ChangeMap(Session.Character.CharacterId, tp.MapId, tp.MapX, tp.MapY);
+                                ServerManager.Instance.ChangeMap(Session.Character.CharacterId, tp.MapId, tp.MapX,
+                                    tp.MapY);
                             }
                             else
                             {
-                                Session.SendPacket(Session.Character.GenerateSay(Language.Instance.GetMessageFromKey("NOT_ENOUGH_MONEY"), 10));
+                                Session.SendPacket(
+                                    Session.Character.GenerateSay(
+                                        Language.Instance.GetMessageFromKey("NOT_ENOUGH_MONEY"), 10));
                             }
                         }
                     }
@@ -138,11 +144,14 @@ namespace OpenNos.GameObject
                             {
                                 ServerManager.Instance.LeaveMap(Session.Character.CharacterId);
                                 Session.Character.Gold -= 5000 * type;
-                                ServerManager.Instance.ChangeMap(Session.Character.CharacterId, tp.MapId, tp.MapX, tp.MapY);
+                                ServerManager.Instance.ChangeMap(Session.Character.CharacterId, tp.MapId, tp.MapX,
+                                    tp.MapY);
                             }
                             else
                             {
-                                Session.SendPacket(Session.Character.GenerateSay(Language.Instance.GetMessageFromKey("NOT_ENOUGH_MONEY"), 10));
+                                Session.SendPacket(
+                                    Session.Character.GenerateSay(
+                                        Language.Instance.GetMessageFromKey("NOT_ENOUGH_MONEY"), 10));
                             }
                         }
                     }
@@ -159,11 +168,14 @@ namespace OpenNos.GameObject
                                 ServerManager.Instance.LeaveMap(Session.Character.CharacterId);
                                 Session.Character.Gold -= 500;
                                 Session.SendPacket(Session.Character.GenerateGold());
-                                ServerManager.Instance.ChangeMap(Session.Character.CharacterId, tp.MapId, tp.MapX, tp.MapY);
+                                ServerManager.Instance.ChangeMap(Session.Character.CharacterId, tp.MapId, tp.MapX,
+                                    tp.MapY);
                             }
                             else
                             {
-                                Session.SendPacket(Session.Character.GenerateSay(Language.Instance.GetMessageFromKey("NOT_ENOUGH_MONEY"), 10));
+                                Session.SendPacket(
+                                    Session.Character.GenerateSay(
+                                        Language.Instance.GetMessageFromKey("NOT_ENOUGH_MONEY"), 10));
                             }
                         }
                     }
@@ -183,8 +195,16 @@ namespace OpenNos.GameObject
                 case 150:
                     if (npc != null)
                     {
-                        ServerManager.Instance.LeaveMap(Session.Character.CharacterId);
-                        ServerManager.Instance.ChangeMap(Session.Character.CharacterId, 150, 153, 145);
+                        var lodMinimumLevel = 45;
+                        if (Session.Character.Level >= lodMinimumLevel)
+                        {
+                            ServerManager.Instance.LeaveMap(Session.Character.CharacterId);
+                            ServerManager.Instance.ChangeMap(Session.Character.CharacterId, 150, 153, 145);
+                        }
+                        else
+                        {
+                            Session.SendPacket(Session.Character.GenerateSay("Vous devez être niveau " + lodMinimumLevel + " minimum pour entrer au LoD", 11));
+                        }
                     }
                     break;
                 case 301:
