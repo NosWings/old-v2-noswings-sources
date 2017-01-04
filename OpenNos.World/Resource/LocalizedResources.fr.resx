@@ -1078,4 +1078,10 @@ Veux-tu le porter ?</value>
   <data name="NO_WINGS" xml:space="preserve">
     <value>Tu n'as pas d'aile d'amitié à utiliser.</value>
   </data>
+  <data name="LEAVE_RAID" xml:space="preserve">
+    <value>{0} a quitté l'équipe.</value>
+  </data>
+  <data name="RAID_CLOSED" xml:space="preserve">
+    <value>L'équipe a été dissoute.</value>
+  </data>
 </root>

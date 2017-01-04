@@ -128,6 +128,8 @@ namespace OpenNos.GameObject
 
         public Group Group { get; set; }
 
+        public Raid Raid { get; set; }
+
         public List<long> GroupSentRequestCharacterIds { get; set; }
 
         public bool HasGodMode { get; set; }
@@ -2931,7 +2933,7 @@ namespace OpenNos.GameObject
             }
             Session.SendPacket(GenerateLev());
         }
-
+        
         public int GetCP()
         {
             int cpmax = (Class > 0 ? 40 : 0) + JobLevel * 2;
@@ -3239,6 +3241,7 @@ namespace OpenNos.GameObject
             MailList = new Dictionary<int, MailDTO>();
             LastMailRefresh = DateTime.Now;
             Group = null;
+            Raid = null;
             GmPvtBlock = false;
         }
 

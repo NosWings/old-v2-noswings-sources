@@ -1576,6 +1576,29 @@ namespace OpenNos.Handler
             }
         }
 
+        [Packet("rd")]
+        public void Raid(string packet)
+        {
+            string[] packetsplit = packet.Split(' ');
+
+            if (packetsplit.Length >= 4)
+            {
+                switch (packetsplit[2])
+                {
+                    case "1":       // Invitation
+                        Logger.Debug("Invitation");
+                        break;
+                    case "2":       // Dissolution
+                        Logger.Debug("Dissolution");
+                        ServerManager.Instance.RaidDisolve(Session);
+                        break;
+                    default:
+                        Logger.Debug(packetsplit[2]);
+                        break;
+                }
+            }
+        }
+
         #endregion
     }
 }

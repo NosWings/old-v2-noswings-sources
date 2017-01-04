@@ -64,6 +64,31 @@ namespace OpenNos.GameObject
                     session.SendPacket(session.Character.GenerateSpPoint());
                     break;
 
+                /*********************************\
+                **             Sceaux            **
+                ***********************************
+                ** VNUM :
+                ** - 1127 : Cuby
+                ** - 1128 : Ginseng
+                ** - 1129 : Castra
+                ** - 1130 : Jack
+                ** - 1131 : Slade
+                \**********************************/
+                case 301:
+                    // Delete item
+                    //session.Character.Inventory.RemoveItemAmountFromInventory(1, inv.Id);
+                    // Create raid
+                    Raid raid = new Raid();
+                    raid.JoinRaid(session);
+                    session.SendPacket($"raid 2 {session.SessionId}");
+                    session.SendPacket($"raid 0 {session.SessionId}");
+                    session.SendPacket("raid 1 1");
+                    session.SendPacket(raid.GenerateRdlst());
+                    session.SendPacket($"say 1 {session.SessionId} 10 Tu es chef de raid à présent. Invite des membres.");
+                    session.SendPacket($"msg 0 Tu es chef de raid à présent. Invite des membres.");
+                    ServerManager.Instance.AddRaid(raid);
+                    break;
+
                 // Divorce letter
                 case 6969: // this is imaginary number I = √(-1)
                     break;
@@ -171,6 +196,7 @@ namespace OpenNos.GameObject
 
                 default:
                     Logger.Log.Warn(string.Format(Language.Instance.GetMessageFromKey("NO_HANDLER_ITEM"), GetType()));
+                    Logger.Log.Warn($"ID : {Effect}");
                     break;
             }
         }

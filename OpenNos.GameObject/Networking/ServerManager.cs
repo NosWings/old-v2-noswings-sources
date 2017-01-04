@@ -52,6 +52,7 @@ namespace OpenNos.GameObject
 
         private List<DropDTO> _generalDrops;
         private ThreadSafeSortedList<long, Group> _groups;
+        private ThreadSafeSortedList<long, Raid> _raids;
         private ThreadSafeSortedList<short, List<MapNpc>> _mapNpcs;
         private ThreadSafeSortedList<short, List<DropDTO>> _monsterDrops;
         private ThreadSafeSortedList<short, List<NpcMonsterSkill>> _monsterSkills;
@@ -64,6 +65,7 @@ namespace OpenNos.GameObject
         private ThreadSafeSortedList<int, List<ShopSkillDTO>> _shopSkills;
         private ThreadSafeSortedList<int, List<TeleporterDTO>> _teleporters;
         private long lastGroupId;
+        private long lastRaidId;
 
         #endregion
 
@@ -96,6 +98,14 @@ namespace OpenNos.GameObject
             get
             {
                 return _groups.GetAllItems();
+            }
+        }
+
+        public List<Raid> Raids
+        {
+            get
+            {
+                return _raids.GetAllItems();
             }
         }
 
@@ -147,6 +157,11 @@ namespace OpenNos.GameObject
         public void AddGroup(Group group)
         {
             _groups[group.GroupId] = group;
+        }
+
+        public void AddRaid(Raid raid)
+        {
+            _raids[raid.RaidId] = raid;
         }
 
         // PacketHandler -> with Callback?
@@ -317,10 +332,21 @@ namespace OpenNos.GameObject
             return Groups?.SingleOrDefault(g => g.IsMemberOfGroup(characterId));
         }
 
+        public Raid GetRaidByCharacterId(long characterId)
+        {
+            return Raids?.SingleOrDefault(g => g.IsMemberOfRaid(characterId));
+        }
+
         public long GetNextGroupId()
         {
             lastGroupId++;
             return lastGroupId;
+        }
+
+        public long GetNextRaidId()
+        {
+            lastRaidId++;
+            return lastRaidId;
         }
 
         public T GetProperty<T>(string charName, string property)
@@ -402,6 +428,57 @@ namespace OpenNos.GameObject
                     }
                     session.Character.Group = null;
                 }
+            }
+        }
+
+        public void RaidLeave(ClientSession session)
+        {
+            if (Raids != null)
+            {
+                Raid raid = Instance.Raids.FirstOrDefault(s => s.IsMemberOfRaid(session.Character.CharacterId));
+                if (raid != null)
+                {
+                    if (raid.CharacterCount > 1)
+                    {
+                        if (raid.Characters.ElementAt(0) == session)
+                        {
+                            Broadcast(session, session.Character.GenerateInfo(Language.Instance.GetMessageFromKey("NEW_LEADER")), ReceiverType.OnlySomeone, string.Empty, raid.Characters.ElementAt(1).Character.CharacterId);
+                        }
+                        raid.LeaveGroup(session);
+                        foreach (ClientSession groupSession in raid.Characters)
+                        {
+                            ClientSession sess = GetSessionByCharacterId(groupSession.Character.CharacterId);
+                            sess.SendPacket(sess.Character.GeneratePinit());
+                            sess.SendPacket(sess.Character.GenerateMsg(string.Format(Language.Instance.GetMessageFromKey("LEAVE_RAID"), session.Character.Name), 0));
+                        }
+                        session.SendPacket("pinit 0");
+                        Broadcast(session.Character.GeneratePidx(true));
+                        session.SendPacket(session.Character.GenerateMsg(Language.Instance.GetMessageFromKey("GROUP_LEFT"), 0));
+                    }
+                    else
+                    {
+                        RaidDisolve(session, raid);
+                    }
+                    session.Character.Raid = null;
+                }
+            }
+        }
+
+        public void RaidDisolve(ClientSession session, Raid raid = null)
+        {
+            if (raid == null)
+                raid = Instance.Raids.FirstOrDefault(s => s.IsMemberOfRaid(session.Character.CharacterId));
+            if (raid != null)
+            {
+                foreach (ClientSession targetSession in raid.Characters)
+                {
+                    targetSession.SendPacket("raid 1 0");
+                    targetSession.SendPacket("raid 2 - 1");
+                    targetSession.SendPacket(targetSession.Character.GenerateMsg(Language.Instance.GetMessageFromKey("RAID_CLOSED"), 0));
+                    Broadcast(targetSession.Character.GeneratePidx(true));
+                    raid.LeaveGroup(targetSession);
+                }
+                RemoveRaid(raid);
             }
         }
 
@@ -684,6 +761,7 @@ namespace OpenNos.GameObject
         public void LaunchEvents()
         {
             _groups = new ThreadSafeSortedList<long, Group>();
+            _raids = new ThreadSafeSortedList<long, Raid>();
 
             Observable.Interval(TimeSpan.FromMinutes(5)).Subscribe(x =>
             {
@@ -742,6 +820,7 @@ namespace OpenNos.GameObject
             ServerCommunicationClient.Instance.MessageSentToCharacter += OnMessageSentToCharacter;
 
             lastGroupId = 1;
+            lastRaidId = 1;
         }
 
         // Map
@@ -923,6 +1002,7 @@ namespace OpenNos.GameObject
             {
                 _monsterDrops.Dispose();
                 _groups.Dispose();
+                _raids.Dispose();
                 _monsterSkills.Dispose();
                 _shopSkills.Dispose();
                 _shopItems.Dispose();
@@ -1034,6 +1114,11 @@ namespace OpenNos.GameObject
         private void RemoveGroup(Group grp)
         {
             _groups.Remove(grp.GroupId);
+        }
+
+        private void RemoveRaid(Raid raid)
+        {
+            _raids.Remove(raid.RaidId);
         }
 
         private void RemoveItemProcess()

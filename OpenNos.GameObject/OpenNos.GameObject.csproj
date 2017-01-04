@@ -188,6 +188,7 @@
     <Compile Include="Packets\ServerPackets\VbPacket.cs" />
     <Compile Include="Packets\ServerPackets\WearPacket.cs" />
     <Compile Include="Packets\ServerPackets\WithDrawPacket.cs" />
+    <Compile Include="Raid.cs" />
     <Compile Include="Recipe.cs" />
     <Compile Include="Shop.cs" />
     <Compile Include="Item\Item.cs" />
