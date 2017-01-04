@@ -1592,8 +1592,8 @@ namespace OpenNos.Handler
                         Logger.Debug("Dissolution");
                         ServerManager.Instance.RaidDisolve(Session);
                         break;
-                    default:
-                        Logger.Debug(packetsplit[2]);
+                    default:        // Else, print packets
+                        Logger.Debug(packet);
                         break;
                 }
             }

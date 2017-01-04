@@ -80,11 +80,12 @@ namespace OpenNos.GameObject
                     // Create raid
                     Raid raid = new Raid();
                     raid.JoinRaid(session);
-                    session.SendPacket($"raid 2 {session.SessionId}");
-                    session.SendPacket($"raid 0 {session.SessionId}");
+                    session.SendPacket($"raid 2 {session.Character.CharacterId}");
+                    session.SendPacket($"raid 0 {session.Character.CharacterId}");
                     session.SendPacket("raid 1 1");
+                    session.Character.GenerateRest();
                     session.SendPacket(raid.GenerateRdlst());
-                    session.SendPacket($"say 1 {session.SessionId} 10 Tu es chef de raid à présent. Invite des membres.");
+                    session.SendPacket($"say 1 {session.Character.CharacterId} 10 Tu es chef de raid à présent. Invite des membres.");
                     session.SendPacket($"msg 0 Tu es chef de raid à présent. Invite des membres.");
                     ServerManager.Instance.AddRaid(raid);
                     break;
