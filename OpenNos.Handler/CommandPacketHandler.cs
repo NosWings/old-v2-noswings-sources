@@ -419,6 +419,7 @@ namespace OpenNos.Handler
                     Session.CurrentMap?.Broadcast(Session.Character.GenerateEff(6), Session.Character.MapX, Session.Character.MapY);
                     Session.CurrentMap?.Broadcast(Session.Character.GenerateEff(198), Session.Character.MapX, Session.Character.MapY);
                     ServerManager.Instance.UpdateGroup(Session.Character.CharacterId);
+                    ServerManager.Instance.UpdateRaid(Session.Character.CharacterId);
                 }
                 else
                 {

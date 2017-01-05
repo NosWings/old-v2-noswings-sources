@@ -161,7 +161,10 @@ namespace OpenNos.GameObject
 
         public void AddRaid(Raid raid)
         {
-            _raids[raid.RaidId] = raid;
+            if (raid != null)
+                _raids[raid.RaidId] = raid;
+            else
+                Logger.Debug("Erreur : raid null");
         }
 
         // PacketHandler -> with Callback?
@@ -438,28 +441,30 @@ namespace OpenNos.GameObject
                 Raid raid = Instance.Raids.FirstOrDefault(s => s.IsMemberOfRaid(session.Character.CharacterId));
                 if (raid != null)
                 {
-                    if (raid.CharacterCount > 1)
+                    if (raid.CharacterCount > 0)
                     {
-                        if (raid.Characters.ElementAt(0) == session)
+                        if (raid.Leader == session)
                         {
-                            Broadcast(session, session.Character.GenerateInfo(Language.Instance.GetMessageFromKey("NEW_LEADER")), ReceiverType.OnlySomeone, string.Empty, raid.Characters.ElementAt(1).Character.CharacterId);
+                            raid.Leader = raid.Characters.ElementAt(0);
+                            raid.LeaveRaid(raid.Leader);
+                            raid.Leader.SendPacket($"say 1 {raid.Leader.Character.CharacterId} 10 {Language.Instance.GetMessageFromKey("RAID_NEW_LEADER")}");
+                            raid.Leader.SendPacket(raid.Leader.Character.GenerateMsg(Language.Instance.GetMessageFromKey("RAID_NEW_LEADER"), 0));
                         }
-                        raid.LeaveGroup(session);
-                        foreach (ClientSession groupSession in raid.Characters)
+                        raid.LeaveRaid(session);
+                        foreach (ClientSession gs in raid.Characters)
                         {
-                            ClientSession sess = GetSessionByCharacterId(groupSession.Character.CharacterId);
-                            sess.SendPacket(sess.Character.GeneratePinit());
-                            sess.SendPacket(sess.Character.GenerateMsg(string.Format(Language.Instance.GetMessageFromKey("LEAVE_RAID"), session.Character.Name), 0));
+                            gs.SendPacket(gs.Character.GeneratePinit());
+                            gs.SendPacket(gs.Character.GenerateMsg(string.Format(Language.Instance.GetMessageFromKey("LEAVE_RAID"), session.Character.Name), 0));
                         }
-                        session.SendPacket("pinit 0");
-                        Broadcast(session.Character.GeneratePidx(true));
-                        session.SendPacket(session.Character.GenerateMsg(Language.Instance.GetMessageFromKey("GROUP_LEFT"), 0));
+                        session.SendPacket("raid 1 0");
+                        session.SendPacket("raid 2 - 1");
+                        session.SendPacket(session.Character.GenerateMsg(Language.Instance.GetMessageFromKey("RAID_LEFT"), 0));
                     }
                     else
                     {
                         RaidDisolve(session, raid);
                     }
-                    session.Character.Raid = null;
+                    raid.UpdateVisual();
                 }
             }
         }
@@ -470,13 +475,16 @@ namespace OpenNos.GameObject
                 raid = Instance.Raids.FirstOrDefault(s => s.IsMemberOfRaid(session.Character.CharacterId));
             if (raid != null)
             {
+                raid.Leader.SendPacket("raid 1 0");
+                raid.Leader.SendPacket("raid 2 -1");
+                raid.Leader.SendPacket(raid.Leader.Character.GenerateMsg(Language.Instance.GetMessageFromKey("RAID_CLOSED"), 0));
+                raid.LeaveRaid(raid.Leader);
                 foreach (ClientSession targetSession in raid.Characters)
                 {
                     targetSession.SendPacket("raid 1 0");
-                    targetSession.SendPacket("raid 2 - 1");
+                    targetSession.SendPacket("raid 2 -1");
                     targetSession.SendPacket(targetSession.Character.GenerateMsg(Language.Instance.GetMessageFromKey("RAID_CLOSED"), 0));
-                    Broadcast(targetSession.Character.GeneratePidx(true));
-                    raid.LeaveGroup(targetSession);
+                    raid.LeaveRaid(targetSession);
                 }
                 RemoveRaid(raid);
             }
@@ -746,6 +754,16 @@ namespace OpenNos.GameObject
             return Groups != null && Groups.Any(g => g.IsMemberOfGroup(characterId) && g.CharacterCount == 3);
         }
 
+        public bool IsCharacterMemberOfRaid(long characterId)
+        {
+            return Raids != null && Raids.Any(g => g.IsMemberOfRaid(characterId));
+        }
+
+        public bool IsCharactersRaidFull(long characterId)
+        {
+            return Groups != null && Groups.Any(g => g.IsMemberOfGroup(characterId) && g.CharacterCount == 3);
+        }
+
         // Server
         public bool Kick(string characterName)
         {
@@ -771,6 +789,11 @@ namespace OpenNos.GameObject
             Observable.Interval(TimeSpan.FromSeconds(2)).Subscribe(x =>
             {
                 GroupProcess();
+            });
+
+            Observable.Interval(TimeSpan.FromSeconds(2)).Subscribe(x =>
+            {
+                RaidProcess();
             });
 
             Observable.Interval(TimeSpan.FromHours(3)).Subscribe(x =>
@@ -928,6 +951,48 @@ namespace OpenNos.GameObject
             }
         }
 
+        public void UpdateRaid(long charId)
+        {
+            try
+            {
+                if (Raids != null)
+                {
+                    Raid myRaid = Raids.FirstOrDefault(s => s.IsMemberOfRaid(charId));
+                    if (myRaid == null)
+                        return;
+
+                    string str = $"rdlst {myRaid.MinLvl} {myRaid.AverageLvl} 0 ";
+                    Character leader = myRaid.Leader.Character;
+                    IList <ClientSession> raidMembers = Raids.FirstOrDefault(s => s.IsMemberOfRaid(charId))?.Characters;
+                    
+                    str += $"{leader.Level}."
+                        + $"{(leader.UseSp || leader.IsVehicled ? leader.Morph : 0)}."
+                        + $"{(short)leader.Class}.0.{leader.Name}.0."
+                        + $"{myRaid.Leader.SessionId}.{leader.HeroLevel} ";
+
+                    if (raidMembers != null)
+                    {
+                        foreach (ClientSession session in raidMembers)
+                        {
+                            str += $"{session.Character.Level}."
+                                + $"{(session.Character.UseSp || session.Character.IsVehicled ? session.Character.Morph : 0)}."
+                                + $"{(short)session.Character.Class}.0.{session.Character.Name}.0."
+                                + $"{session.SessionId}.{session.Character.HeroLevel} ";
+                        }
+                    }
+
+                    foreach (ClientSession session in myRaid.Characters)
+                    {
+                        session.SendPacket(str);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e);
+            }
+        }
+
         internal IEnumerable<MapNpc> GetMapNpcsByMapId(short mapId)
         {
             if (_mapNpcs.ContainsKey(mapId))
@@ -1040,6 +1105,27 @@ namespace OpenNos.GameObject
                             {
                                 session.SendPacket(str);
                             }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e);
+            }
+        }
+
+        private void RaidProcess()
+        {
+            try
+            {
+                if (Raids != null)
+                {
+                    foreach (Raid raid in Raids)
+                    {
+                        foreach (ClientSession session in raid.Characters)
+                        {
+                            session.SendPacket(raid.GenerateRdlst());
                         }
                     }
                 }

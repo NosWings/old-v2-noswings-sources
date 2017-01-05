@@ -1084,4 +1084,10 @@ Veux-tu le porter ?</value>
   <data name="RAID_CLOSED" xml:space="preserve">
     <value>L'équipe a été dissoute.</value>
   </data>
+  <data name="RAID_LEFT" xml:space="preserve">
+    <value>Vous venez de quitter l'équipe.</value>
+  </data>
+  <data name="RAID_NEW_LEADER" xml:space="preserve">
+    <value>Vous êtes maintenant le chef de l'équipe.</value>
+  </data>
 </root>

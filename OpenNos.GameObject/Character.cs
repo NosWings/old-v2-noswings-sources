@@ -2856,6 +2856,7 @@ namespace OpenNos.GameObject
                 Session.CurrentMap?.Broadcast(GenerateEff(6), MapX, MapY);
                 Session.CurrentMap?.Broadcast(GenerateEff(198), MapX, MapY);
                 ServerManager.Instance.UpdateGroup(CharacterId);
+                ServerManager.Instance.UpdateRaid(CharacterId);
             }
 
             WearableInstance fairy = Inventory?.LoadBySlotAndType<WearableInstance>((byte)EquipmentType.Fairy, InventoryType.Wear);

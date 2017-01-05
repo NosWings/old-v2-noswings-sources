@@ -1581,19 +1581,23 @@ namespace OpenNos.Handler
         {
             string[] packetsplit = packet.Split(' ');
 
+            Logger.Debug(packet);
             if (packetsplit.Length >= 4)
             {
                 switch (packetsplit[2])
                 {
                     case "1":       // Invitation
-                        Logger.Debug("Invitation");
+                        Logger.Debug("Invitation de raid");
+                        long id;
+                        if (long.TryParse(packetsplit[3], out id))
+                            Session.Character.Raid.JoinRaid(id);
                         break;
-                    case "2":       // Dissolution
-                        Logger.Debug("Dissolution");
-                        ServerManager.Instance.RaidDisolve(Session);
+                    case "2":       // Membre qui Leave
+                    case "4":       // Chef qui Leave
+                        Logger.Debug("Leave d'un membre du raid");
+                        ServerManager.Instance.RaidLeave(Session);
                         break;
-                    default:        // Else, print packets
-                        Logger.Debug(packet);
+                    default:
                         break;
                 }
             }
