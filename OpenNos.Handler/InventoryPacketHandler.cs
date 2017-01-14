@@ -900,8 +900,10 @@ namespace OpenNos.Handler
                 specialistInstance.HitRate = 0;
                 specialistInstance.CriticalLuckRate = 0;
                 specialistInstance.CriticalRate = 0;
+                specialistInstance.CloseDefence = 0;
                 specialistInstance.DefenceDodge = 0;
                 specialistInstance.DistanceDefenceDodge = 0;
+                specialistInstance.DistanceDefence = 0;
                 specialistInstance.ElementRate = 0;
                 specialistInstance.DarkResistance = 0;
                 specialistInstance.LightResistance = 0;
