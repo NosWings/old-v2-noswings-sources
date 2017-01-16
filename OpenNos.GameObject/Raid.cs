@@ -144,6 +144,19 @@ namespace OpenNos.GameObject
             UpdateVisual();
         }
 
+        public void KickPlayerFromRaid(long characterId)
+        {
+            ClientSession session = ServerManager.Instance.GetSessionByCharacterId(characterId);
+            if (session != null)
+                KickPlayerFromRaid(session);
+        }
+
+        public void KickPlayerFromRaid(ClientSession session)
+        {
+            session.Character.Raid = null;
+            _characters.Remove(session.Character.CharacterId);
+        }
+
         public void LeaveRaid(ClientSession session)
         {
             session.Character.Raid = null;
