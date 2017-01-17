@@ -867,9 +867,6 @@ namespace OpenNos.Handler
                 amount = shopitem.SellAmount;
             }
 
-            shopOwnerSession.Character.Gold += shopitem.Price * amount;
-            shopOwnerSession.SendPacket(shopOwnerSession.Character.GenerateGold());
-            shopOwnerSession.SendPacket(shopOwnerSession.Character.GenerateShopMemo(1, string.Format(Language.Instance.GetMessageFromKey("BUY_ITEM"), Session.Character.Name, shopitem.ItemInstance.Item.Name, amount)));
             clientSession.CurrentMap.UserShops[shop.Key].Sell += shopitem.Price * amount;
 
             if (shopitem.ItemInstance.Type != InventoryType.Equipment)
@@ -879,9 +876,13 @@ namespace OpenNos.Handler
 
                 // remove sold amount from sellamount
                 shopitem.SellAmount -= amount;
+                shopOwnerSession.Character.Gold += shopitem.Price * amount;
+                shopOwnerSession.SendPacket(shopOwnerSession.Character.GenerateGold());
+                shopOwnerSession.SendPacket(shopOwnerSession.Character.GenerateShopMemo(1, string.Format(Language.Instance.GetMessageFromKey("BUY_ITEM"), Session.Character.Name, shopitem.ItemInstance.Item.Name, amount)));
             }
             else
             {
+
                 // remove equipment
                 shopOwnerSession.Character.Inventory.Remove(shopitem.ItemInstance.Id);
 
@@ -890,6 +891,10 @@ namespace OpenNos.Handler
 
                 // remove the sell amount
                 shopitem.SellAmount = 0;
+
+                shopOwnerSession.Character.Gold += shopitem.Price * amount;
+                shopOwnerSession.SendPacket(shopOwnerSession.Character.GenerateGold());
+                shopOwnerSession.SendPacket(shopOwnerSession.Character.GenerateShopMemo(1, string.Format(Language.Instance.GetMessageFromKey("BUY_ITEM"), Session.Character.Name, shopitem.ItemInstance.Item.Name, amount)));
             }
 
             // remove item from shop if the amount the user wanted to sell has been sold
