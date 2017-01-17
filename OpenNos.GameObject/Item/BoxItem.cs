@@ -131,12 +131,13 @@ namespace OpenNos.GameObject
             new S_RaidBoxItem(25, 2901, 20), // Diamants Intacts
             new S_RaidBoxItem(15, 2505, 10), // Cristal terrestre
             new S_RaidBoxItem(1, 4912, 6), // Dague 92
-            new S_RaidBoxItem(1, 4909, 6), // Arba 92
-            new S_RaidBoxItem(1, 4915, 6), // Pisto 92
-            new S_RaidBoxItem(1, 4917, 7), // Pistolet du héros oublié (Fake)
-            new S_RaidBoxItem(1, 4911, 7), // Arbalète du héros oublié (Fake)
-            new S_RaidBoxItem(1, 4914, 7), // Dague du héros oublié (Fake)
-            new S_RaidBoxItem(1, 4934, 1) // Bottes de kertos
+            new S_RaidBoxItem(1, 4909, 5), // Arba 92
+            new S_RaidBoxItem(1, 4915, 5), // Pisto 92
+            new S_RaidBoxItem(1, 4917, 6), // Pistolet du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4911, 6), // Arbalète du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4914, 6), // Dague du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4934, 4), // Bottes de kertos
+            new S_RaidBoxItem(1, 2501, 2) // Parcho secondaire greni
         };
 
         List<S_RaidBoxItem> valakus_loots = new List<S_RaidBoxItem>
@@ -145,12 +146,13 @@ namespace OpenNos.GameObject
             new S_RaidBoxItem(25, 2901, 20), // Diamants Intacts
             new S_RaidBoxItem(15, 2505, 10), // Cristal terrestre
             new S_RaidBoxItem(1, 4924, 6), // Tunique du phoenix flamboyant
-            new S_RaidBoxItem(1, 4918, 6), // Armure à plaques du géant de flammes
-            new S_RaidBoxItem(1, 4921, 6), // Armure en cuir du géant de braise
-            new S_RaidBoxItem(1, 4926, 7), // Robe du héros oublié (Fake)
-            new S_RaidBoxItem(1, 4920, 7), // Armure du héros oublié (Fake)
-            new S_RaidBoxItem(1, 4923, 7), // Tunique du héros oublié (Fake)
-            new S_RaidBoxItem(1, 4932, 1) // Gant de valakus
+            new S_RaidBoxItem(1, 4918, 5), // Armure à plaques du géant de flammes
+            new S_RaidBoxItem(1, 4921, 5), // Armure en cuir du géant de braise
+            new S_RaidBoxItem(1, 4926, 6), // Robe du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4920, 6), // Armure du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4923, 6), // Tunique du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4932, 4), // Gant de valakus
+            new S_RaidBoxItem(1, 2502, 2) // Parcho armure greni
         };
 
         List<S_RaidBoxItem> grenigas_loots = new List<S_RaidBoxItem>
@@ -159,12 +161,13 @@ namespace OpenNos.GameObject
             new S_RaidBoxItem(25, 2901, 20), // Diamants Intacts
             new S_RaidBoxItem(15, 2505, 10), // Cristal terrestre
             new S_RaidBoxItem(1, 4900, 6), // Epée incendiaire de Magmaros
-            new S_RaidBoxItem(1, 4903, 6), // Aile de phoenix
-            new S_RaidBoxItem(1, 4906, 6), // Spectre de lave
-            new S_RaidBoxItem(1, 4908, 7), // Baguette du héros oublié (Fake)
-            new S_RaidBoxItem(1, 4902, 7), // Epée du héros oublié (Fake)
-            new S_RaidBoxItem(1, 4905, 7), // Arc du héros oublié (Fake)
-            new S_RaidBoxItem(1, 4930, 1) // Casque des flammes
+            new S_RaidBoxItem(1, 4903, 5), // Aile de phoenix
+            new S_RaidBoxItem(1, 4906, 5), // Spectre de lave
+            new S_RaidBoxItem(1, 4908, 6), // Baguette du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4902, 6), // Epée du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4905, 6), // Arc du héros oublié (Fake)
+            new S_RaidBoxItem(1, 4930, 4), // Casque des flammes
+            new S_RaidBoxItem(1, 2500, 2) //Parcho arme principale
         };
 
         List<S_RaidBoxItem> draco_loots = new List<S_RaidBoxItem>
