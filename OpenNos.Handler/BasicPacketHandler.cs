@@ -1592,15 +1592,17 @@ namespace OpenNos.Handler
                         if (long.TryParse(packetsplit[3], out id))
                             Session.Character.Raid.JoinRaid(id);
                         break;
-                    case "2":       // Membre qui Leave
-                        break;
                     case "3":
                         Logger.Debug("Kick d'un membre du raid");
                         if (long.TryParse(packetsplit[3], out id))
                             Session.Character.Raid.KickPlayerFromRaid(id);
                         break;
-                    case "4":       // Chef qui Leave
+                    case "2":       // Membre qui Leave
                         Logger.Debug("Leave d'un membre du raid");
+                        ServerManager.Instance.RaidLeave(Session);
+                        break;
+                    case "4":       // Chef qui Leave
+                        Logger.Debug("Leave du chef du raid");
                         ServerManager.Instance.RaidLeave(Session);
                         break;
                     default:
