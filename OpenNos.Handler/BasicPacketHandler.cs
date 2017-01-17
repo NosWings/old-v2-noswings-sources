@@ -1584,11 +1584,11 @@ namespace OpenNos.Handler
             Logger.Debug(packet);
             if (packetsplit.Length >= 4)
             {
+                long id;
                 switch (packetsplit[2])
                 {
                     case "1":       // Invitation
                         Logger.Debug("Invitation de raid");
-                        long id;
                         if (long.TryParse(packetsplit[3], out id))
                             Session.Character.Raid.JoinRaid(id);
                         break;
@@ -1596,7 +1596,6 @@ namespace OpenNos.Handler
                         break;
                     case "3":
                         Logger.Debug("Kick d'un membre du raid");
-                        long id;
                         if (long.TryParse(packetsplit[3], out id))
                             Session.Character.Raid.KickPlayerFromRaid(id);
                         break;
