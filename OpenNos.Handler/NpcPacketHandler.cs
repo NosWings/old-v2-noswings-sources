@@ -109,25 +109,6 @@ namespace OpenNos.Handler
                                 Session.Character.Gold -= item.Price * amount;
                                 Session.SendPacket(Session.Character.GenerateGold());
 
-                                if (!Session.HasCurrentMap)
-                                {
-                                    return ;
-                                }
-                                PersonalShopItem shopitem = Session.CurrentMap.UserShops[shop.Key].Items.FirstOrDefault(i => i.ShopSlot.Equals(buyPacket.Slot));
-                                if (shopitem == null)
-                                {
-                                    return ;
-                                }
-                                Guid id = shopitem.ItemInstance.Id;
-
-                                ClientSession shopOwnerSession = ServerManager.Instance.GetSessionByCharacterId(shop.Value.OwnerId);
-                                if (shopOwnerSession == null)
-                                {
-                                    return ;
-                                }
-                                shopOwnerSession.Character.Gold += shopitem.Price * amount;
-                                shopOwnerSession.SendPacket(shopOwnerSession.Character.GenerateGold());
-                                shopOwnerSession.SendPacket(shopOwnerSession.Character.GenerateShopMemo(1, string.Format(Language.Instance.GetMessageFromKey("BUY_ITEM"), Session.Character.Name, shopitem.ItemInstance.Item.Name, amount)));
                                 KeyValuePair<long, MapShop> shop2 = Session.CurrentMap.UserShops.FirstOrDefault(s => s.Value.OwnerId.Equals(buyPacket.OwnerId));
                                 LoadShopItem(buyPacket.OwnerId, shop2);
                             }
@@ -156,8 +137,8 @@ namespace OpenNos.Handler
                             }
                             if (npc.Shop.ShopSkills.Any())
                             {
-                                if(!npc.Shop.ShopSkills.Exists(s=> s.SkillVNum == buyPacket.Slot))
-                                {                                    
+                                if (!npc.Shop.ShopSkills.Exists(s => s.SkillVNum == buyPacket.Slot))
+                                {
                                     return;
                                 }
                                 // skill shop
@@ -886,6 +867,9 @@ namespace OpenNos.Handler
                 amount = shopitem.SellAmount;
             }
 
+            shopOwnerSession.Character.Gold += shopitem.Price * amount;
+            shopOwnerSession.SendPacket(shopOwnerSession.Character.GenerateGold());
+            shopOwnerSession.SendPacket(shopOwnerSession.Character.GenerateShopMemo(1, string.Format(Language.Instance.GetMessageFromKey("BUY_ITEM"), Session.Character.Name, shopitem.ItemInstance.Item.Name, amount)));
             clientSession.CurrentMap.UserShops[shop.Key].Sell += shopitem.Price * amount;
 
             if (shopitem.ItemInstance.Type != InventoryType.Equipment)
@@ -898,7 +882,6 @@ namespace OpenNos.Handler
             }
             else
             {
-
                 // remove equipment
                 shopOwnerSession.Character.Inventory.Remove(shopitem.ItemInstance.Id);
 
@@ -907,7 +890,6 @@ namespace OpenNos.Handler
 
                 // remove the sell amount
                 shopitem.SellAmount = 0;
-
             }
 
             // remove item from shop if the amount the user wanted to sell has been sold
