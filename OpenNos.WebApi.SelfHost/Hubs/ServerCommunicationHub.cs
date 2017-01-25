@@ -342,7 +342,10 @@ namespace OpenNos.WebApi.SelfHost
                         //int slotsLeft = world.AccountLimit - currentlyConnectedAccounts;
                         //int channelcolor = (world.AccountLimit / slotsLeft) + 1;
 
-                        channelPacket += $"{world.Endpoint.IpAddress}:{world.Endpoint.TcpPort}:1:{servercount}.{channelCount}.{worldserverGroup.GroupName} ";
+                        if (channelCount == 1)
+                            channelPacket += $"{world.Endpoint.IpAddress}:{world.Endpoint.TcpPort}:8:{servercount}.{channelCount}.{worldserverGroup.GroupName} ";
+                        else
+                            channelPacket += $"{world.Endpoint.IpAddress}:{world.Endpoint.TcpPort}:0:{servercount}.{channelCount}.{worldserverGroup.GroupName} ";
                         channelCount++;
                     }
                     servercount++;

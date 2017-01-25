@@ -36,22 +36,22 @@ namespace OpenNos.GameObject
         {
             public byte amount;
             public short itemvnum;
-            public float drop_chance; // <= 100.00
+            public float dropChance; // <= 100.00
 
-            public S_RaidBoxItem(byte amount, short itemvnum, float drop_chance)
+            public S_RaidBoxItem(byte amount, short itemvnum, float dropChance)
             {
                 this.amount = amount;
                 this.itemvnum = itemvnum;
-                this.drop_chance = drop_chance;
+                this.dropChance = dropChance;
             }
         }
 
-        private S_RaidBoxItem gen_random_item(List<S_RaidBoxItem> items)
+        private S_RaidBoxItem generateRandomRaidBoxItem(List<S_RaidBoxItem> items)
         {
             List<S_RaidBoxItem> tmp = new List<S_RaidBoxItem>();
 
             foreach (S_RaidBoxItem item in items)
-                for (int i = 0; i < item.drop_chance; i++)
+                for (int i = 0; i < item.dropChance; i++)
                     tmp.Add(item);
 
             return tmp[new Random().Next(tmp.Count)];
@@ -224,67 +224,67 @@ namespace OpenNos.GameObject
                         switch (raidBox.Design)
                         {
                             case 1: //XYXY
-                                rand_item = gen_random_item(xyxy_loots);
+                                rand_item = generateRandomRaidBoxItem(xyxy_loots);
                                 numberOfItem = rand_item.amount;
                                 newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum,
                                     rand_item.amount);
                                 break;
                             case 2: //CASTRA
-                                rand_item = gen_random_item(castra_loots);
+                                rand_item = generateRandomRaidBoxItem(castra_loots);
                                 numberOfItem = rand_item.amount;
                                 newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum,
                                     rand_item.amount);
                                 break;
                             case 3: //JACK
-                                rand_item = gen_random_item(jack_loots);
+                                rand_item = generateRandomRaidBoxItem(jack_loots);
                                 numberOfItem = rand_item.amount;
                                 newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum,
                                     rand_item.amount);
                                 break;
                             case 4: //SLADE
-                                rand_item = gen_random_item(slade_loots);
+                                rand_item = generateRandomRaidBoxItem(slade_loots);
                                 numberOfItem = rand_item.amount;
                                 newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum,
                                     rand_item.amount);
                                 break;
                             case 9: //IBRAHIM
-                                rand_item = gen_random_item(ibra_loots);
+                                rand_item = generateRandomRaidBoxItem(ibra_loots);
                                 numberOfItem = rand_item.amount;
                                 newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum,
                                     rand_item.amount);
                                 break;
                             case 13: //KERTOS
-                                rand_item = gen_random_item(kertos_loots);
+                                rand_item = generateRandomRaidBoxItem(kertos_loots);
                                 numberOfItem = rand_item.amount;
                                 newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum,
                                     rand_item.amount);
                                 break;
                             case 14: //VALAKUS
-                                rand_item = gen_random_item(valakus_loots);
+                                rand_item = generateRandomRaidBoxItem(valakus_loots);
                                 numberOfItem = rand_item.amount;
                                 newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum,
                                     rand_item.amount);
                                 break;
                             case 15: //GRENIGAS
-                                rand_item = gen_random_item(grenigas_loots);
+                                rand_item = generateRandomRaidBoxItem(grenigas_loots);
                                 numberOfItem = rand_item.amount;
                                 newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum,
                                     rand_item.amount);
                                 break;
                             case 16: //DRACO
-                                rand_item = gen_random_item(draco_loots);
+                                rand_item = generateRandomRaidBoxItem(draco_loots);
                                 numberOfItem = rand_item.amount;
                                 newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum,
                                     rand_item.amount);
                                 break;
                             case 17: //GLAGLA
-                                rand_item = gen_random_item(glagla_loots);
+                                rand_item = generateRandomRaidBoxItem(glagla_loots);
                                 numberOfItem = rand_item.amount;
                                 newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum,
                                     rand_item.amount);
                                 break;
                             default: //CUBY
-                                rand_item = gen_random_item(cuby_loots);
+                                rand_item = generateRandomRaidBoxItem(cuby_loots);
                                 numberOfItem = rand_item.amount;
                                 newInv = session.Character.Inventory.AddNewToInventory(rand_item.itemvnum,
                                     rand_item.amount);
